@@ -1,0 +1,82 @@
+[
+  {
+    "N": 6,
+    "nSd": 15,
+    "nSa": 3003,
+    "pairs": 45045,
+    "seconds": 0.004,
+    "attacker_minimax": 10.901
+  },
+  {
+    "N": 7,
+    "nSd": 21,
+    "nSa": 8008,
+    "pairs": 168168,
+    "seconds": 0.01,
+    "attacker_minimax": 12.901
+  },
+  {
+    "N": 8,
+    "nSd": 28,
+    "nSa": 19448,
+    "pairs": 544544,
+    "seconds": 0.029,
+    "attacker_minimax": 13.261
+  },
+  {
+    "N": 9,
+    "nSd": 36,
+    "nSa": 43758,
+    "pairs": 1575288,
+    "seconds": 0.088,
+    "attacker_minimax": 19.78
+  },
+  {
+    "N": 10,
+    "nSd": 45,
+    "nSa": 92378,
+    "pairs": 4157010,
+    "seconds": 0.218,
+    "attacker_minimax": 19.23
+  },
+  {
+    "N": 11,
+    "nSd": 55,
+    "nSa": 184756,
+    "pairs": 10161580,
+    "seconds": 0.578,
+    "attacker_minimax": 18.62
+  },
+  {
+    "N": 12,
+    "nSd": 66,
+    "nSa": 352716,
+    "pairs": 23279256,
+    "seconds": 1.553,
+    "attacker_minimax": 36.94
+  },
+  {
+    "N": 13,
+    "nSd": 78,
+    "nSa": 646646,
+    "pairs": 50438388,
+    "seconds": 3.868,
+    "attacker_minimax": 41.63
+  },
+  {
+    "N": 14,
+    "nSd": 91,
+    "nSa": 1144066,
+    "pairs": 104110006,
+    "seconds": 8.874,
+    "attacker_minimax": 37.55
+  },
+  {
+    "N": 15,
+    "nSd": 105,
+    "nSa": 1961256,
+    "pairs": 205931880,
+    "seconds": 19.291,
+    "attacker_minimax": 55.4
+  }
+]

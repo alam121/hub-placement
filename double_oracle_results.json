@@ -1,0 +1,22 @@
+{
+  "benchmark_N6": {
+    "exact_value": 6.2613,
+    "DO_value": 6.2613,
+    "iters": 13,
+    "support_def": 4,
+    "support_att": 2,
+    "evaluated": 18126,
+    "full": 45045,
+    "pct": 40.2
+  },
+  "random_N8": {
+    "exact_value": 14.809,
+    "DO_value": 14.809,
+    "iters": 8,
+    "support_def": 3,
+    "support_att": 2,
+    "evaluated": 58519,
+    "full": 544544,
+    "pct": 10.7
+  }
+}

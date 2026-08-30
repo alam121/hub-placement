@@ -1,0 +1,50 @@
+[
+  {
+    "N": 6,
+    "nSd": 15,
+    "nSa": 3003,
+    "pairs": 45045,
+    "seconds": 0.183,
+    "attacker_minimax": 10.901
+  },
+  {
+    "N": 7,
+    "nSd": 21,
+    "nSa": 8008,
+    "pairs": 168168,
+    "seconds": 0.609,
+    "attacker_minimax": 12.901
+  },
+  {
+    "N": 8,
+    "nSd": 28,
+    "nSa": 19448,
+    "pairs": 544544,
+    "seconds": 2.02,
+    "attacker_minimax": 13.261
+  },
+  {
+    "N": 9,
+    "nSd": 36,
+    "nSa": 43758,
+    "pairs": 1575288,
+    "seconds": 6.809,
+    "attacker_minimax": 19.78
+  },
+  {
+    "N": 10,
+    "nSd": 45,
+    "nSa": 92378,
+    "pairs": 4157010,
+    "seconds": 17.615,
+    "attacker_minimax": 19.23
+  },
+  {
+    "N": 11,
+    "nSd": 55,
+    "nSa": 184756,
+    "pairs": 10161580,
+    "seconds": 41.214,
+    "attacker_minimax": 18.62
+  }
+]
