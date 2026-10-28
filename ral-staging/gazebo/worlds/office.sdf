@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<sdf version="1.9"><world name="office">
+<physics name="p" type="ignored"><max_step_size>0.004</max_step_size><real_time_factor>1.0</real_time_factor></physics>
+<plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+<plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
+<plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+<model name="ground"><static>true</static><link name="l">
+<collision name="c"><geometry><plane><normal>0 0 1</normal><size>400 400</size></plane></geometry>
+<surface><friction><ode><mu>1.0</mu><mu2>1.0</mu2></ode></friction></surface></collision></link></model>
+<model name="walls"><static>true</static><link name="w0"><pose>60.0 79.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>120 1 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>120 1 1</size></box></geometry></visual></link><link name="w1"><pose>60.0 0.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>120 1 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>120 1 1</size></box></geometry></visual></link><link name="w2"><pose>0.5 66.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 25 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 25 1</size></box></geometry></visual></link><link name="w3"><pose>0.5 39.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 27 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 27 1</size></box></geometry></visual></link><link name="w4"><pose>0.5 13.0 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 24 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 24 1</size></box></geometry></visual></link><link name="w5"><pose>20.5 73.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 11 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 11 1</size></box></geometry></visual></link><link name="w6"><pose>20.5 59.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 11 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 11 1</size></box></geometry></visual></link><link name="w7"><pose>20.5 47.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 11 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 11 1</size></box></geometry></visual></link><link name="w8"><pose>20.5 32.0 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 12 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 12 1</size></box></geometry></visual></link><link name="w9"><pose>20.5 19.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 11 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 11 1</size></box></geometry></visual></link><link name="w10"><pose>20.5 6.0 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 10 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 10 1</size></box></geometry></visual></link><link name="w11"><pose>40.5 73.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 11 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 11 1</size></box></geometry></visual></link><link name="w12"><pose>40.5 59.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 11 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 11 1</size></box></geometry></visual></link><link name="w13"><pose>40.5 47.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 11 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 11 1</size></box></geometry></visual></link><link name="w14"><pose>40.5 32.0 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 12 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 12 1</size></box></geometry></visual></link><link name="w15"><pose>40.5 19.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 11 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 11 1</size></box></geometry></visual></link><link name="w16"><pose>40.5 6.0 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 10 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 10 1</size></box></geometry></visual></link><link name="w17"><pose>60.5 73.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 11 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 11 1</size></box></geometry></visual></link><link name="w18"><pose>60.5 59.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 11 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 11 1</size></box></geometry></visual></link><link name="w19"><pose>60.5 47.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 11 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 11 1</size></box></geometry></visual></link><link name="w20"><pose>60.5 32.0 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 12 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 12 1</size></box></geometry></visual></link><link name="w21"><pose>60.5 19.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 11 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 11 1</size></box></geometry></visual></link><link name="w22"><pose>60.5 6.0 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 10 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 10 1</size></box></geometry></visual></link><link name="w23"><pose>80.5 73.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 11 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 11 1</size></box></geometry></visual></link><link name="w24"><pose>80.5 59.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 11 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 11 1</size></box></geometry></visual></link><link name="w25"><pose>80.5 47.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 11 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 11 1</size></box></geometry></visual></link><link name="w26"><pose>80.5 32.0 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 12 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 12 1</size></box></geometry></visual></link><link name="w27"><pose>80.5 19.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 11 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 11 1</size></box></geometry></visual></link><link name="w28"><pose>80.5 6.0 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 10 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 10 1</size></box></geometry></visual></link><link name="w29"><pose>100.5 73.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 11 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 11 1</size></box></geometry></visual></link><link name="w30"><pose>100.5 59.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 11 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 11 1</size></box></geometry></visual></link><link name="w31"><pose>100.5 47.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 11 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 11 1</size></box></geometry></visual></link><link name="w32"><pose>100.5 32.0 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 12 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 12 1</size></box></geometry></visual></link><link name="w33"><pose>100.5 19.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 11 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 11 1</size></box></geometry></visual></link><link name="w34"><pose>100.5 6.0 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 10 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 10 1</size></box></geometry></visual></link><link name="w35"><pose>119.5 66.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 25 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 25 1</size></box></geometry></visual></link><link name="w36"><pose>119.5 39.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 27 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 27 1</size></box></geometry></visual></link><link name="w37"><pose>119.5 13.0 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>1 24 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>1 24 1</size></box></geometry></visual></link><link name="w38"><pose>4.5 53.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>9 1 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>9 1 1</size></box></geometry></visual></link><link name="w39"><pose>4.5 25.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>9 1 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>9 1 1</size></box></geometry></visual></link><link name="w40"><pose>20.5 53.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>17 1 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>17 1 1</size></box></geometry></visual></link><link name="w41"><pose>20.5 25.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>17 1 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>17 1 1</size></box></geometry></visual></link><link name="w42"><pose>40.5 53.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>17 1 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>17 1 1</size></box></geometry></visual></link><link name="w43"><pose>40.5 25.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>17 1 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>17 1 1</size></box></geometry></visual></link><link name="w44"><pose>60.5 53.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>17 1 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>17 1 1</size></box></geometry></visual></link><link name="w45"><pose>60.5 25.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>17 1 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>17 1 1</size></box></geometry></visual></link><link name="w46"><pose>80.5 53.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>17 1 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>17 1 1</size></box></geometry></visual></link><link name="w47"><pose>80.5 25.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>17 1 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>17 1 1</size></box></geometry></visual></link><link name="w48"><pose>100.5 53.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>17 1 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>17 1 1</size></box></geometry></visual></link><link name="w49"><pose>100.5 25.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>17 1 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>17 1 1</size></box></geometry></visual></link><link name="w50"><pose>116.0 53.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>8 1 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>8 1 1</size></box></geometry></visual></link><link name="w51"><pose>116.0 25.5 0.5 0 0 0</pose>
+<collision name="c"><geometry><box><size>8 1 1</size></box></geometry></collision>
+<visual name="v"><geometry><box><size>8 1 1</size></box></geometry></visual></link></model>
+<include><uri>file:///home/claude/gz/robot</uri><name>robot</name><pose>108.5 61.5 0.0 0 0 0</pose></include>
+</world></sdf>
