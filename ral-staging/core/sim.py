@@ -118,8 +118,9 @@ def scenario(kind, seed, K=12, N=12, speed=1.5, service=30.0, density=0.20, prio
             dl_mat[i, j] = float(ttime[i, j])
     if priority == "uniform":
         v = np.ones(N)
-    else:
-        v = 10.0 / np.arange(1, N + 1); rng.shuffle(v)
+    else:  # "skewed" == "zipf:1"; "zipf:a" gives v = 10 / rank^a (a = 0 is uniform but consumes the same RNG draws)
+        a = 1.0 if priority == "skewed" else float(priority.split(":")[1])
+        v = 10.0 / np.arange(1, N + 1) ** a; rng.shuffle(v)
     return dict(kind=kind, obst=obst, sites=sites, zones=zones, Dsz=Dsz, Dss=Dss, A=A, v=v, c=c,
                 p=0.7, speed=speed, service=service, deadline=deadline, dl_mat=dl_mat, seed=seed)
 
@@ -178,14 +179,22 @@ class Sim:
             self._plan_cache[key] = plan(self.sc, tuple(int(i) for i in self.P[di]), self.W[ai])
         return self._plan_cache[key]
 
-    def run(self, x, q, shifts, rng, shift_len=8 * 3600.0, speed_sd=0.15):
+    def run(self, x, q, shifts, seed, shift_len=8 * 3600.0, speed_sd=0.15):
+        """Common random numbers: every policy evaluated with the same `seed` sees the same per-shift
+        uniforms (placement draw, attack time, surveillance) and the same per-robot-slot speed/success
+        draws, so policy comparisons are paired."""
         sc = self.sc
         x = np.asarray(x, float); x = x / x.sum()
+        cdf = np.cumsum(x)
+        R = int(self.m * sc["c"])
+        g = np.random.default_rng(seed)
+        U_place, U_time, U_obs = g.random(shifts), g.random(shifts), g.random(shifts)
+        SPD = g.lognormal(0.0, speed_sd, (shifts, R)); SUC = g.random((shifts, R))
         blind_attack = int(np.argmin(self.U.T @ x))
         prev = None
         vals, relocs, taus, observed = [], [], [], 0
-        for _ in range(shifts):
-            di = int(rng.choice(len(x), p=x))
+        for sh in range(shifts):
+            di = int(min(np.searchsorted(cdf, U_place[sh] * cdf[-1], side='right'), len(x) - 1))
             pl = [int(i) for i in self.P[di]]
             # relocation: match previous docks to new docks
             origin = {i: (i, i, 0.0) for i in pl}
@@ -199,23 +208,23 @@ class Sim:
                     dist_total += sc["c"] * sc["Dss"][a, b]
                     tau = max(tau, sc["Dss"][a, b] / sc["speed"])
             prev = pl
-            t_a = rng.uniform(0, shift_len)
+            t_a = U_time[sh] * shift_len
             in_transit = t_a < tau
-            sees = in_transit or (rng.random() < q)
+            sees = in_transit or (U_obs[sh] < q)
             observed += sees
             ai = int(self.obs_attack[di]) if sees else blind_attack
             w = self.W[ai]
             S, route = self.get_plan(di, ai)
             ok = {j: 0 for j in S}
-            for (i, j) in route:
+            for slot, (i, j) in enumerate(route):
                 a, b, dab = origin[i]
                 if in_transit and dab > 0:
                     frac = min(1.0, t_a * sc["speed"] / dab)  # fraction of relocation completed
                     d = min(frac * dab + sc["Dsz"][a, j], (1 - frac) * dab + sc["Dsz"][b, j])
                 else:
                     d = sc["Dsz"][i, j]
-                t = d / (sc["speed"] * rng.lognormal(0.0, speed_sd)) + sc["service"]
-                if t <= sc["dl_mat"][i, j] and rng.random() < sc["p"]:
+                t = d / (sc["speed"] * SPD[sh, slot]) + sc["service"]
+                if t <= sc["dl_mat"][i, j] and SUC[sh, slot] < sc["p"]:
                     ok[j] += 1
             val = sum(sc["v"][j] for j in range(len(w)) if w[j] == 0)
             val += sum(sc["v"][j] for j in S if ok[j] == w[j])

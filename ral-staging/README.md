@@ -25,6 +25,14 @@ python3 localize.py          # rewrites development paths to this checkout (run 
 | `core/marginal_gap.py`, `marginal_gap.json` | same-marginal value spread and comb-sampling loss (Sec. IV) |
 | `core/run_scale.py`, `stress_scale.py`, `scale_results.jsonl`, `stress.jsonl` | 30–100-zone scaling study (Sec. VI-B) |
 | `core/sim.py`, `sim_experiment.py`, `sim_results.json` | closed-loop shift simulator, 450 runs (Sec. VI-C) |
+| `core/relocation_study.py`, `relocation_study.json` | policy-dependent relocation exposure, shift-length sensitivity (Sec. VI-E, Supp. S3) |
+| `core/terminal_variants.py`, `terminal_variants.json` | response-model sensitivity: partial credit, p = 0.5 / 0.9 (Supp. S4) |
+| `core/sensitivity_study.py`, `sensitivity_study.json` | one-factor-at-a-time scenario sensitivity (Table II, Supp. S5) |
+| `core/lemma2_example.py` | exact check of the positive-priority Lemma 2 counterexample |
+| `core/REVISION_NOTES.md` | point-by-point response to the pre-submission review |
+| `core/paper/supplement.tex`, `gen_supplement.py` | supplementary material (tables generated from the raw results) |
+| `gazebo/near_deadline.py` | navigation-model discrepancy near deadlines + tightened-deadline check |
+| `gazebo/multi/` | concurrent three-robot Nav2 experiment (setup, runner, per-shift results, verified-reachability runs) |
 | `core/figures.py` | paper figures |
 | `core/paper/` | LaTeX source (IEEEtran), figure PDFs, compiled PDF |
 | `gazebo/` | Gazebo Harmonic worlds, robot model, Nav2 params, mission runner, results (Sec. VI-D); see `gazebo/README.md` |

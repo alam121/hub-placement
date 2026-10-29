@@ -1,6 +1,6 @@
 """Closed-loop simulation study (pre-registered in PREREGISTRATION.md addendum).
 3 maps x 5 layouts x 2 regimes; 5 policies; q in {0, .25, .5}; 1000 shifts each."""
-import json, sys, time
+import json, sys, time, zlib
 import numpy as np
 from multiprocessing import Pool
 from sim import scenario, Sim
@@ -35,8 +35,8 @@ def job(args):
         xq = solve_q(U, q, mvec)["x"]
         pols = {"fixed_maximin": fixed, "mexclp": mex, "uniform_random": unif, "concealed_q0": x0, "leakage_aware": xq}
         for name, x in pols.items():
-            rng = np.random.default_rng(hash((kind, layout, regime, q, name)) % 2**32)
-            r = s.run(x, q, SHIFTS, rng)
+            seed = zlib.crc32(f"{kind}|{layout}|{regime}|{q}".encode())  # same seed for every policy: paired
+            r = s.run(x, q, SHIFTS, seed)
             out.append(dict(map=kind, layout=layout, regime=regime, q=q, policy=name,
                             model=model_value(U, mvec, x, q), P=float(mvec.max()),
                             deadline=sc["deadline"], density=float(sc["A"].mean()),

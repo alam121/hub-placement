@@ -1,0 +1,322 @@
+[
+ {
+  "policy": "fixed",
+  "shift": 0,
+  "movers": 0,
+  "legs": [],
+  "value": 12.69877344877345,
+  "model_value_same_draws": 12.69877344877345,
+  "model_expected": 12.698773448773448,
+  "min_pair_dist": null
+ },
+ {
+  "policy": "fixed",
+  "shift": 1,
+  "movers": 0,
+  "legs": [],
+  "value": 12.69877344877345,
+  "model_value_same_draws": 12.69877344877345,
+  "model_expected": 12.698773448773448,
+  "min_pair_dist": null
+ },
+ {
+  "policy": "fixed",
+  "shift": 2,
+  "movers": 0,
+  "legs": [],
+  "value": 12.69877344877345,
+  "model_value_same_draws": 12.69877344877345,
+  "model_expected": 12.698773448773448,
+  "min_pair_dist": null
+ },
+ {
+  "policy": "leakage_aware",
+  "shift": 0,
+  "movers": 0,
+  "legs": [],
+  "value": 12.69877344877345,
+  "model_value_same_draws": 12.69877344877345,
+  "model_expected": 12.698773448773448,
+  "min_pair_dist": null
+ },
+ {
+  "policy": "leakage_aware",
+  "shift": 1,
+  "movers": 1,
+  "legs": [
+   {
+    "robot": 1,
+    "zone": 8,
+    "status": "succeeded",
+    "arrival": 7.644000000000002,
+    "model_time": 6.2761423749153975,
+    "deadline": 24.41665222413704,
+    "on_time": true
+   }
+  ],
+  "value": 17.69877344877345,
+  "model_value_same_draws": 17.69877344877345,
+  "model_expected": 16.198773448773448,
+  "min_pair_dist": 34.00000000000007
+ },
+ {
+  "policy": "leakage_aware",
+  "shift": 2,
+  "movers": 0,
+  "legs": [],
+  "value": 12.69877344877345,
+  "model_value_same_draws": 12.69877344877345,
+  "model_expected": 12.698773448773448,
+  "min_pair_dist": null
+ },
+ {
+  "policy": "leakage_aware",
+  "shift": 3,
+  "movers": 1,
+  "legs": [
+   {
+    "robot": 1,
+    "zone": 8,
+    "status": "succeeded",
+    "arrival": 7.756,
+    "model_time": 6.2761423749153975,
+    "deadline": 24.41665222413704,
+    "on_time": true
+   }
+  ],
+  "value": 17.69877344877345,
+  "model_value_same_draws": 17.69877344877345,
+  "model_expected": 16.198773448773448,
+  "min_pair_dist": 34.00000000000007
+ },
+ {
+  "policy": "leakage_aware",
+  "shift": 4,
+  "movers": 0,
+  "legs": [],
+  "value": 12.69877344877345,
+  "model_value_same_draws": 12.69877344877345,
+  "model_expected": 12.698773448773448,
+  "min_pair_dist": null
+ },
+ {
+  "policy": "leakage_aware",
+  "shift": 5,
+  "movers": 1,
+  "legs": [
+   {
+    "robot": 1,
+    "zone": 8,
+    "status": "succeeded",
+    "arrival": 7.647999999999996,
+    "model_time": 6.2761423749153975,
+    "deadline": 24.41665222413704,
+    "on_time": true
+   }
+  ],
+  "value": 12.69877344877345,
+  "model_value_same_draws": 12.69877344877345,
+  "model_expected": 16.198773448773448,
+  "min_pair_dist": 34.00000000000007
+ },
+ {
+  "policy": "leakage_aware",
+  "shift": 6,
+  "movers": 1,
+  "legs": [
+   {
+    "robot": 1,
+    "zone": 8,
+    "status": "succeeded",
+    "arrival": 7.588000000000008,
+    "model_time": 6.2761423749153975,
+    "deadline": 24.41665222413704,
+    "on_time": true
+   }
+  ],
+  "value": 17.69877344877345,
+  "model_value_same_draws": 17.69877344877345,
+  "model_expected": 16.198773448773448,
+  "min_pair_dist": 34.00000000000007
+ },
+ {
+  "policy": "leakage_aware",
+  "shift": 7,
+  "movers": 1,
+  "legs": [
+   {
+    "robot": 1,
+    "zone": 8,
+    "status": "aborted",
+    "arrival": 2.0079999999999956,
+    "model_time": 6.2761423749153975,
+    "deadline": 24.41665222413704,
+    "on_time": false
+   }
+  ],
+  "value": 12.69877344877345,
+  "model_value_same_draws": 17.69877344877345,
+  "model_expected": 16.198773448773448,
+  "min_pair_dist": 34.00000000000007
+ },
+ {
+  "policy": "leakage_aware",
+  "shift": 8,
+  "movers": 0,
+  "legs": [],
+  "value": 12.69877344877345,
+  "model_value_same_draws": 12.69877344877345,
+  "model_expected": 12.698773448773448,
+  "min_pair_dist": null
+ },
+ {
+  "policy": "leakage_aware",
+  "shift": 9,
+  "movers": 1,
+  "legs": [
+   {
+    "robot": 1,
+    "zone": 8,
+    "status": "succeeded",
+    "arrival": 7.611999999999995,
+    "model_time": 6.2761423749153975,
+    "deadline": 24.41665222413704,
+    "on_time": true
+   }
+  ],
+  "value": 17.69877344877345,
+  "model_value_same_draws": 17.69877344877345,
+  "model_expected": 16.198773448773448,
+  "min_pair_dist": 34.00000000000007
+ },
+ {
+  "policy": "leakage_aware",
+  "shift": 10,
+  "movers": 0,
+  "legs": [],
+  "value": 12.69877344877345,
+  "model_value_same_draws": 12.69877344877345,
+  "model_expected": 12.698773448773448,
+  "min_pair_dist": null
+ },
+ {
+  "policy": "leakage_aware",
+  "shift": 11,
+  "movers": 0,
+  "legs": [],
+  "value": 12.69877344877345,
+  "model_value_same_draws": 12.69877344877345,
+  "model_expected": 12.698773448773448,
+  "min_pair_dist": null
+ },
+ {
+  "policy": "leakage_aware",
+  "shift": 12,
+  "movers": 1,
+  "legs": [
+   {
+    "robot": 1,
+    "zone": 8,
+    "status": "aborted",
+    "arrival": 1.0480000000000018,
+    "model_time": 6.2761423749153975,
+    "deadline": 24.41665222413704,
+    "on_time": false
+   }
+  ],
+  "value": 12.69877344877345,
+  "model_value_same_draws": 17.69877344877345,
+  "model_expected": 16.198773448773448,
+  "min_pair_dist": 34.00000000000007
+ },
+ {
+  "policy": "leakage_aware",
+  "shift": 13,
+  "movers": 0,
+  "legs": [],
+  "value": 12.69877344877345,
+  "model_value_same_draws": 12.69877344877345,
+  "model_expected": 12.698773448773448,
+  "min_pair_dist": null
+ },
+ {
+  "policy": "leakage_aware",
+  "shift": 14,
+  "movers": 0,
+  "legs": [],
+  "value": 12.69877344877345,
+  "model_value_same_draws": 12.69877344877345,
+  "model_expected": 12.698773448773448,
+  "min_pair_dist": null
+ },
+ {
+  "policy": "leakage_aware",
+  "shift": 15,
+  "movers": 0,
+  "legs": [],
+  "value": 12.69877344877345,
+  "model_value_same_draws": 12.69877344877345,
+  "model_expected": 12.698773448773448,
+  "min_pair_dist": null
+ },
+ {
+  "policy": "leakage_aware",
+  "shift": 16,
+  "movers": 1,
+  "legs": [
+   {
+    "robot": 1,
+    "zone": 8,
+    "status": "succeeded",
+    "arrival": 7.695999999999998,
+    "model_time": 6.2761423749153975,
+    "deadline": 24.41665222413704,
+    "on_time": true
+   }
+  ],
+  "value": 17.69877344877345,
+  "model_value_same_draws": 17.69877344877345,
+  "model_expected": 16.198773448773448,
+  "min_pair_dist": 34.00000000000007
+ },
+ {
+  "policy": "leakage_aware",
+  "shift": 17,
+  "movers": 0,
+  "legs": [],
+  "value": 12.69877344877345,
+  "model_value_same_draws": 12.69877344877345,
+  "model_expected": 12.698773448773448,
+  "min_pair_dist": null
+ },
+ {
+  "policy": "leakage_aware",
+  "shift": 18,
+  "movers": 0,
+  "legs": [],
+  "value": 12.69877344877345,
+  "model_value_same_draws": 12.69877344877345,
+  "model_expected": 12.698773448773448,
+  "min_pair_dist": null
+ },
+ {
+  "policy": "leakage_aware",
+  "shift": 19,
+  "movers": 1,
+  "legs": [
+   {
+    "robot": 1,
+    "zone": 8,
+    "status": "succeeded",
+    "arrival": 7.611999999999995,
+    "model_time": 6.2761423749153975,
+    "deadline": 24.41665222413704,
+    "on_time": true
+   }
+  ],
+  "value": 17.69877344877345,
+  "model_value_same_draws": 17.69877344877345,
+  "model_expected": 16.198773448773448,
+  "min_pair_dist": 34.00000000000007
+ }
+]
