@@ -9,6 +9,11 @@ exact max-flow terminal evaluator, a certified greedy lower bound, an LP matrix-
 game solver, and a combinatorial best-response (branch-and-bound) double oracle.
 No commercial optimizer is required.
 
+## RA-L follow-up: leakage-aware randomized staging
+The folder [`ral-staging/`](ral-staging/) contains the code, data, Gazebo/Nav2 setup, manuscript
+source and supplementary video for *"When Should Robots Hide Where They Wait? Leakage-Aware Randomized
+Staging for Capacity-Constrained Multi-Robot Response"* (IEEE RA-L submission). See its README.
+
 ## Requirements
 Python 3.10+, and:
 ```
