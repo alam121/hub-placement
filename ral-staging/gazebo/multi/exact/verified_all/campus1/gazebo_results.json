@@ -1,0 +1,576 @@
+[
+ {
+  "pair": 0,
+  "rep": 0,
+  "legs": [
+   {
+    "robot": 0,
+    "dock": 1,
+    "zone": 5,
+    "status": "succeeded",
+    "arrival": 8.556000000000001,
+    "model_time": 6.599663291074445,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   },
+   {
+    "robot": 1,
+    "dock": 2,
+    "zone": 11,
+    "status": "succeeded",
+    "arrival": 64.784,
+    "model_time": 10.82842712474619,
+    "deadline": 23.902270307301166,
+    "on_time": false
+   },
+   {
+    "robot": 2,
+    "dock": 5,
+    "zone": 11,
+    "status": "succeeded",
+    "arrival": 24.036,
+    "model_time": 7.495093791412856,
+    "deadline": 23.902270307301166,
+    "on_time": false
+   }
+  ],
+  "min_pair_dist": 0.4914981822126253,
+  "concurrent": true,
+  "overlap_s": 24.036,
+  "wall_s": 136.8226957321167
+ },
+ {
+  "pair": 1,
+  "rep": 0,
+  "legs": [
+   {
+    "robot": 1,
+    "dock": 2,
+    "zone": 11,
+    "status": "succeeded",
+    "arrival": 24.024,
+    "model_time": 10.82842712474619,
+    "deadline": 23.902270307301166,
+    "on_time": false
+   },
+   {
+    "robot": 2,
+    "dock": 5,
+    "zone": 11,
+    "status": "succeeded",
+    "arrival": 9.887999999999991,
+    "model_time": 7.495093791412856,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 1.045607519019527,
+  "concurrent": true,
+  "overlap_s": 9.887999999999991,
+  "wall_s": 57.39650630950928
+ },
+ {
+  "pair": 2,
+  "rep": 0,
+  "legs": [
+   {
+    "robot": 2,
+    "dock": 8,
+    "zone": 5,
+    "status": "succeeded",
+    "arrival": 19.38799999999999,
+    "model_time": 18.990187582825715,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 64.04494065741518,
+  "concurrent": false,
+  "overlap_s": 0.0,
+  "wall_s": 46.56576895713806
+ },
+ {
+  "pair": 3,
+  "rep": 0,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 4,
+  "rep": 0,
+  "legs": [
+   {
+    "robot": 1,
+    "dock": 6,
+    "zone": 9,
+    "status": "succeeded",
+    "arrival": 12.903999999999996,
+    "model_time": 11.428090415820636,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   },
+   {
+    "robot": 2,
+    "dock": 10,
+    "zone": 9,
+    "status": "succeeded",
+    "arrival": 5.716000000000008,
+    "model_time": 5.885618083164126,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 1.768807376477584,
+  "concurrent": true,
+  "overlap_s": 5.716000000000008,
+  "wall_s": 32.31767821311951
+ },
+ {
+  "pair": 5,
+  "rep": 0,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 6,
+  "rep": 0,
+  "legs": [
+   {
+    "robot": 0,
+    "dock": 6,
+    "zone": 9,
+    "status": "succeeded",
+    "arrival": 13.063999999999993,
+    "model_time": 11.428090415820636,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   },
+   {
+    "robot": 1,
+    "dock": 8,
+    "zone": 5,
+    "status": "succeeded",
+    "arrival": 19.312000000000012,
+    "model_time": 18.990187582825715,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   },
+   {
+    "robot": 2,
+    "dock": 10,
+    "zone": 9,
+    "status": "succeeded",
+    "arrival": 5.704000000000008,
+    "model_time": 5.885618083164126,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 1.7305282672161748,
+  "concurrent": true,
+  "overlap_s": 13.063999999999993,
+  "wall_s": 49.07803010940552
+ },
+ {
+  "pair": 7,
+  "rep": 0,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 8,
+  "rep": 0,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 0,
+  "rep": 1,
+  "legs": [
+   {
+    "robot": 0,
+    "dock": 1,
+    "zone": 5,
+    "status": "succeeded",
+    "arrival": 8.528,
+    "model_time": 6.599663291074445,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   },
+   {
+    "robot": 1,
+    "dock": 2,
+    "zone": 11,
+    "status": "succeeded",
+    "arrival": 16.68,
+    "model_time": 10.82842712474619,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   },
+   {
+    "robot": 2,
+    "dock": 5,
+    "zone": 11,
+    "status": "succeeded",
+    "arrival": 10.06,
+    "model_time": 7.495093791412856,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 1.096719047906825,
+  "concurrent": true,
+  "overlap_s": 10.06,
+  "wall_s": 35.33107805252075,
+  "min_wall_clearance": null
+ },
+ {
+  "pair": 1,
+  "rep": 1,
+  "legs": [
+   {
+    "robot": 1,
+    "dock": 2,
+    "zone": 11,
+    "status": "succeeded",
+    "arrival": 11.012,
+    "model_time": 10.82842712474619,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   },
+   {
+    "robot": 2,
+    "dock": 5,
+    "zone": 11,
+    "status": "succeeded",
+    "arrival": 10.055999999999997,
+    "model_time": 7.495093791412856,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 0.5338913200234774,
+  "concurrent": true,
+  "overlap_s": 10.055999999999997,
+  "wall_s": 23.053372144699097,
+  "min_wall_clearance": null
+ },
+ {
+  "pair": 2,
+  "rep": 1,
+  "legs": [
+   {
+    "robot": 2,
+    "dock": 8,
+    "zone": 5,
+    "status": "succeeded",
+    "arrival": 19.327999999999996,
+    "model_time": 18.990187582825715,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 64.0466220330758,
+  "concurrent": false,
+  "overlap_s": 0.0,
+  "wall_s": 40.60487985610962,
+  "min_wall_clearance": null
+ },
+ {
+  "pair": 3,
+  "rep": 1,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 4,
+  "rep": 1,
+  "legs": [
+   {
+    "robot": 1,
+    "dock": 6,
+    "zone": 9,
+    "status": "succeeded",
+    "arrival": 12.884,
+    "model_time": 11.428090415820636,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   },
+   {
+    "robot": 2,
+    "dock": 10,
+    "zone": 9,
+    "status": "succeeded",
+    "arrival": 5.724000000000004,
+    "model_time": 5.885618083164126,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 1.7585100450694575,
+  "concurrent": true,
+  "overlap_s": 5.724000000000004,
+  "wall_s": 27.182180166244507,
+  "min_wall_clearance": null
+ },
+ {
+  "pair": 5,
+  "rep": 1,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 6,
+  "rep": 1,
+  "legs": [
+   {
+    "robot": 0,
+    "dock": 6,
+    "zone": 9,
+    "status": "succeeded",
+    "arrival": 13.159999999999997,
+    "model_time": 11.428090415820636,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   },
+   {
+    "robot": 1,
+    "dock": 8,
+    "zone": 5,
+    "status": "succeeded",
+    "arrival": 19.379999999999995,
+    "model_time": 18.990187582825715,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   },
+   {
+    "robot": 2,
+    "dock": 10,
+    "zone": 9,
+    "status": "succeeded",
+    "arrival": 5.719999999999999,
+    "model_time": 5.885618083164126,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 1.7428023083464972,
+  "concurrent": true,
+  "overlap_s": 13.159999999999997,
+  "wall_s": 41.775083780288696,
+  "min_wall_clearance": null
+ },
+ {
+  "pair": 7,
+  "rep": 1,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 8,
+  "rep": 1,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 0,
+  "rep": 2,
+  "legs": [
+   {
+    "robot": 0,
+    "dock": 1,
+    "zone": 5,
+    "status": "succeeded",
+    "arrival": 8.560000000000002,
+    "model_time": 6.599663291074445,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   },
+   {
+    "robot": 1,
+    "dock": 2,
+    "zone": 11,
+    "status": "succeeded",
+    "arrival": 75.73600000000002,
+    "model_time": 10.82842712474619,
+    "deadline": 23.902270307301166,
+    "on_time": false
+   },
+   {
+    "robot": 2,
+    "dock": 5,
+    "zone": 11,
+    "status": "succeeded",
+    "arrival": 10.056000000000012,
+    "model_time": 7.495093791412856,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 0.5121976455731714,
+  "concurrent": true,
+  "overlap_s": 10.056000000000012,
+  "wall_s": 162.18631744384766,
+  "min_wall_clearance": null
+ },
+ {
+  "pair": 1,
+  "rep": 2,
+  "legs": [
+   {
+    "robot": 1,
+    "dock": 2,
+    "zone": 11,
+    "status": "succeeded",
+    "arrival": 14.395999999999987,
+    "model_time": 10.82842712474619,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   },
+   {
+    "robot": 2,
+    "dock": 5,
+    "zone": 11,
+    "status": "succeeded",
+    "arrival": 9.99199999999999,
+    "model_time": 7.495093791412856,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 0.5355965661146672,
+  "concurrent": true,
+  "overlap_s": 9.99199999999999,
+  "wall_s": 30.650120973587036,
+  "min_wall_clearance": null
+ },
+ {
+  "pair": 2,
+  "rep": 2,
+  "legs": [
+   {
+    "robot": 2,
+    "dock": 8,
+    "zone": 5,
+    "status": "succeeded",
+    "arrival": 19.304000000000002,
+    "model_time": 18.990187582825715,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 64.03730597050841,
+  "concurrent": false,
+  "overlap_s": 0.0,
+  "wall_s": 40.6109254360199,
+  "min_wall_clearance": null
+ },
+ {
+  "pair": 3,
+  "rep": 2,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 4,
+  "rep": 2,
+  "legs": [
+   {
+    "robot": 1,
+    "dock": 6,
+    "zone": 9,
+    "status": "succeeded",
+    "arrival": 12.76400000000001,
+    "model_time": 11.428090415820636,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   },
+   {
+    "robot": 2,
+    "dock": 10,
+    "zone": 9,
+    "status": "succeeded",
+    "arrival": 5.73599999999999,
+    "model_time": 5.885618083164126,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 1.7546389353898646,
+  "concurrent": true,
+  "overlap_s": 5.73599999999999,
+  "wall_s": 27.14198398590088,
+  "min_wall_clearance": null
+ },
+ {
+  "pair": 5,
+  "rep": 2,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 6,
+  "rep": 2,
+  "legs": [
+   {
+    "robot": 0,
+    "dock": 6,
+    "zone": 9,
+    "status": "succeeded",
+    "arrival": 13.099999999999994,
+    "model_time": 11.428090415820636,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   },
+   {
+    "robot": 1,
+    "dock": 8,
+    "zone": 5,
+    "status": "succeeded",
+    "arrival": 19.400000000000006,
+    "model_time": 18.990187582825715,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   },
+   {
+    "robot": 2,
+    "dock": 10,
+    "zone": 9,
+    "status": "succeeded",
+    "arrival": 5.719999999999999,
+    "model_time": 5.885618083164126,
+    "deadline": 23.902270307301166,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 1.7405537591132008,
+  "concurrent": true,
+  "overlap_s": 13.099999999999994,
+  "wall_s": 41.66015672683716,
+  "min_wall_clearance": null
+ },
+ {
+  "pair": 7,
+  "rep": 2,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 8,
+  "rep": 2,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ }
+]

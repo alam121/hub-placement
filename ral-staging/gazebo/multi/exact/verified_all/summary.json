@@ -1,0 +1,1553 @@
+{
+ "summary": {
+  "mode": "verified_all",
+  "layouts": 15,
+  "dispatches": 52,
+  "concurrent_dispatches": 27,
+  "concurrent_3": 8,
+  "overlap_s_total": 344.808,
+  "legs": 87,
+  "legs_concurrent": 62,
+  "succeeded": 85,
+  "aborted": 2,
+  "timeout": 0,
+  "late": 5,
+  "on_time": 80,
+  "arr_err_mean": 2.4239698358992774,
+  "arr_err_p95": 9.436140084517753,
+  "arr_err_conc_mean": 2.968557199177951,
+  "min_inter_robot": 0.4914981822126253,
+  "arr_err_shared_p95": null,
+  "model_gain": [
+   5.256464800958276,
+   2.5145116640188214
+  ],
+  "realized_gain": [
+   5.654101018589644,
+   3.932875532085725
+  ],
+  "layouts_realized_positive": 13,
+  "layouts_model_positive": 14,
+  "layouts_realized_eq_model": 12,
+  "mean_P": 12.85877344877345,
+  "fixed_fail_layouts": [
+   "warehouse4"
+  ],
+  "model_gain_excl_fixed_fail": [
+   5.406074339365797,
+   2.6983984933128
+  ],
+  "realized_gain_excl_fixed_fail": [
+   4.061965188263431,
+   2.111020553301707
+  ],
+  "median_model_gain": 3.3480422937800287,
+  "median_realized_gain": 3.348042293780029,
+  "rep_gain_spread_max": 9.00677537569956,
+  "mean_realized_fixed": 12.695440115440114
+ },
+ "layouts": [
+  {
+   "layout": "campus0",
+   "pairs": 6,
+   "reps": 3,
+   "P": 12.69877344877345,
+   "Vx": 13.658416305916303,
+   "model_gain": 7.556972813272319,
+   "realized_la": [
+    13.658416305916305,
+    13.658416305916305,
+    13.658416305916305
+   ],
+   "realized_fixed": [
+    12.69877344877345,
+    12.69877344877345,
+    12.69877344877345
+   ],
+   "realized_gain": [
+    7.556972813272332,
+    7.556972813272332,
+    7.556972813272332
+   ]
+  },
+  {
+   "layout": "campus1",
+   "pairs": 9,
+   "reps": 3,
+   "P": 12.69877344877345,
+   "Vx": 14.737597549842446,
+   "model_gain": 16.055283679904715,
+   "realized_la": [
+    13.593847549842447,
+    14.737597549842448,
+    13.879785049842447
+   ],
+   "realized_fixed": [
+    12.69877344877345,
+    12.69877344877345,
+    12.69877344877345
+   ],
+   "realized_gain": [
+    7.0485083042051695,
+    16.05528367990473,
+    9.300202148130051
+   ]
+  },
+  {
+   "layout": "campus2",
+   "pairs": 6,
+   "reps": 3,
+   "P": 14.03210678210678,
+   "Vx": 14.418520423470918,
+   "model_gain": 2.7537820753821385,
+   "realized_la": [
+    14.41852042347092,
+    14.41852042347092,
+    14.41852042347092
+   ],
+   "realized_fixed": [
+    14.032106782106782,
+    14.032106782106782,
+    14.032106782106782
+   ],
+   "realized_gain": [
+    2.7537820753821385,
+    2.7537820753821385,
+    2.7537820753821385
+   ]
+  },
+  {
+   "layout": "campus3",
+   "pairs": 10,
+   "reps": 3,
+   "P": 13.532106782106784,
+   "Vx": 14.546876267525308,
+   "model_gain": 7.4989763364883615,
+   "realized_la": [
+    14.54687626752531,
+    14.54687626752531,
+    14.54687626752531
+   ],
+   "realized_fixed": [
+    13.532106782106782,
+    13.532106782106782,
+    13.532106782106782
+   ],
+   "realized_gain": [
+    7.498976336488387,
+    7.498976336488387,
+    7.498976336488387
+   ]
+  },
+  {
+   "layout": "campus4",
+   "pairs": 3,
+   "reps": 3,
+   "P": 14.365440115440114,
+   "Vx": 14.436484662291113,
+   "model_gain": 0.4945518291127012,
+   "realized_la": [
+    14.436484662291114,
+    14.436484662291114,
+    14.436484662291114
+   ],
+   "realized_fixed": [
+    14.365440115440116,
+    14.365440115440116,
+    14.365440115440116
+   ],
+   "realized_gain": [
+    0.4945518291127011,
+    0.4945518291127011,
+    0.4945518291127011
+   ]
+  },
+  {
+   "layout": "office0",
+   "pairs": 9,
+   "reps": 3,
+   "P": 12.698773448773448,
+   "Vx": 14.249154628003703,
+   "model_gain": 12.208904942547848,
+   "realized_la": [
+    12.526746863965595,
+    12.526746863965595,
+    12.526746863965595
+   ],
+   "realized_fixed": [
+    12.69877344877345,
+    12.69877344877345,
+    12.69877344877345
+   ],
+   "realized_gain": [
+    -1.3546708703939443,
+    -1.3546708703939443,
+    -1.3546708703939443
+   ]
+  },
+  {
+   "layout": "office1",
+   "pairs": 8,
+   "reps": 3,
+   "P": 11.532106782106784,
+   "Vx": 11.918206594535594,
+   "model_gain": 3.3480422937800287,
+   "realized_la": [
+    11.918206594535592,
+    11.918206594535592,
+    11.918206594535592
+   ],
+   "realized_fixed": [
+    11.532106782106782,
+    11.532106782106782,
+    11.532106782106782
+   ],
+   "realized_gain": [
+    3.348042293780029,
+    3.348042293780029,
+    3.348042293780029
+   ]
+  },
+  {
+   "layout": "office2",
+   "pairs": 9,
+   "reps": 3,
+   "P": 12.648773448773449,
+   "Vx": 13.798469755867714,
+   "model_gain": 9.089389668891187,
+   "realized_la": [
+    13.798469755867714,
+    13.798469755867714,
+    13.798469755867714
+   ],
+   "realized_fixed": [
+    12.648773448773449,
+    12.648773448773449,
+    12.648773448773449
+   ],
+   "realized_gain": [
+    9.089389668891187,
+    9.089389668891187,
+    9.089389668891187
+   ]
+  },
+  {
+   "layout": "office3",
+   "pairs": 9,
+   "reps": 3,
+   "P": 11.865440115440114,
+   "Vx": 12.10516987600958,
+   "model_gain": 2.0204034425786963,
+   "realized_la": [
+    12.105169876009583,
+    12.105169876009583,
+    12.105169876009583
+   ],
+   "realized_fixed": [
+    11.865440115440116,
+    11.865440115440116,
+    11.865440115440116
+   ],
+   "realized_gain": [
+    2.020403442578711,
+    2.020403442578711,
+    2.020403442578711
+   ]
+  },
+  {
+   "layout": "office4",
+   "pairs": 6,
+   "reps": 3,
+   "P": 13.532106782106782,
+   "Vx": 14.1063480170623,
+   "model_gain": 4.243546435170212,
+   "realized_la": [
+    14.106348017062304,
+    14.106348017062304,
+    14.106348017062304
+   ],
+   "realized_fixed": [
+    13.532106782106782,
+    13.532106782106782,
+    13.532106782106782
+   ],
+   "realized_gain": [
+    4.243546435170238,
+    4.243546435170238,
+    4.243546435170238
+   ]
+  },
+  {
+   "layout": "warehouse0",
+   "pairs": 5,
+   "reps": 3,
+   "P": 14.532106782106782,
+   "Vx": 15.454643033449425,
+   "model_gain": 6.348262266270655,
+   "realized_la": [
+    15.454643033449424,
+    15.454643033449424,
+    15.454643033449424
+   ],
+   "realized_fixed": [
+    14.532106782106782,
+    14.532106782106782,
+    14.532106782106782
+   ],
+   "realized_gain": [
+    6.348262266270643,
+    6.348262266270643,
+    6.348262266270643
+   ]
+  },
+  {
+   "layout": "warehouse1",
+   "pairs": 7,
+   "reps": 3,
+   "P": 11.032106782106784,
+   "Vx": 11.31753762110905,
+   "model_gain": 2.5872740777420065,
+   "realized_la": [
+    11.317537621109048,
+    11.317537621109048,
+    11.317537621109048
+   ],
+   "realized_fixed": [
+    11.032106782106782,
+    11.032106782106782,
+    11.032106782106782
+   ],
+   "realized_gain": [
+    2.587274077742007,
+    2.587274077742007,
+    2.587274077742007
+   ]
+  },
+  {
+   "layout": "warehouse2",
+   "pairs": 4,
+   "reps": 1,
+   "P": 11.532106782106782,
+   "Vx": 11.702741702741703,
+   "model_gain": 1.4796508899802947,
+   "realized_la": [
+    11.702741702741703
+   ],
+   "realized_fixed": [
+    11.532106782106782
+   ],
+   "realized_gain": [
+    1.4796508899802947
+   ]
+  },
+  {
+   "layout": "warehouse3",
+   "pairs": 1,
+   "reps": 1,
+   "P": 13.532106782106782,
+   "Vx": 13.532106782106782,
+   "model_gain": 0.0,
+   "realized_la": [
+    13.532106782106782
+   ],
+   "realized_fixed": [
+    13.532106782106782
+   ],
+   "realized_gain": [
+    0.0
+   ]
+  },
+  {
+   "layout": "warehouse4",
+   "pairs": 6,
+   "reps": 3,
+   "P": 12.648773448773449,
+   "Vx": 13.04871897086826,
+   "model_gain": 3.161931263252987,
+   "realized_la": [
+    13.048718970868258,
+    13.048718970868258,
+    13.048718970868258
+   ],
+   "realized_fixed": [
+    10.19877344877345,
+    10.19877344877345,
+    10.19877344877345
+   ],
+   "realized_gain": [
+    27.944002643156622,
+    27.944002643156622,
+    27.944002643156622
+   ]
+  }
+ ],
+ "failed_arcs": {
+  "campus1": [
+   [
+    2,
+    11
+   ],
+   [
+    5,
+    11
+   ],
+   [
+    2,
+    11
+   ]
+  ],
+  "office0": [
+   [
+    7,
+    8
+   ],
+   [
+    3,
+    10
+   ],
+   [
+    7,
+    8
+   ]
+  ],
+  "warehouse4": [
+   [
+    0,
+    10
+   ]
+  ]
+ },
+ "legs": [
+  {
+   "layout": "campus0",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 0,
+   "dock": 1,
+   "zone": 0,
+   "status": "succeeded",
+   "arrival": 13.548000000000002,
+   "model_time": 12.209138999323175,
+   "deadline": 25.432015382690345,
+   "on_time": true
+  },
+  {
+   "layout": "campus0",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 1,
+   "dock": 3,
+   "zone": 0,
+   "status": "succeeded",
+   "arrival": 12.724,
+   "model_time": 10.209138999323175,
+   "deadline": 25.432015382690345,
+   "on_time": true
+  },
+  {
+   "layout": "campus0",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 2,
+   "dock": 6,
+   "zone": 0,
+   "status": "succeeded",
+   "arrival": 20.2,
+   "model_time": 19.522847498307943,
+   "deadline": 25.432015382690345,
+   "on_time": true
+  },
+  {
+   "layout": "campus0",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 8,
+   "zone": 11,
+   "status": "succeeded",
+   "arrival": 19.024,
+   "model_time": 16.094757082487302,
+   "deadline": 25.432015382690345,
+   "on_time": true
+  },
+  {
+   "layout": "campus0",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 0,
+   "dock": 8,
+   "zone": 11,
+   "status": "succeeded",
+   "arrival": 19.860000000000007,
+   "model_time": 16.094757082487302,
+   "deadline": 25.432015382690345,
+   "on_time": true
+  },
+  {
+   "layout": "campus0",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 10,
+   "zone": 9,
+   "status": "succeeded",
+   "arrival": 17.023999999999994,
+   "model_time": 16.6470418323181,
+   "deadline": 25.432015382690345,
+   "on_time": true
+  },
+  {
+   "layout": "campus1",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 0,
+   "dock": 1,
+   "zone": 5,
+   "status": "succeeded",
+   "arrival": 8.556000000000001,
+   "model_time": 6.599663291074445,
+   "deadline": 23.902270307301166,
+   "on_time": true
+  },
+  {
+   "layout": "campus1",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 1,
+   "dock": 2,
+   "zone": 11,
+   "status": "succeeded",
+   "arrival": 64.784,
+   "model_time": 10.82842712474619,
+   "deadline": 23.902270307301166,
+   "on_time": false
+  },
+  {
+   "layout": "campus1",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 2,
+   "dock": 5,
+   "zone": 11,
+   "status": "succeeded",
+   "arrival": 24.036,
+   "model_time": 7.495093791412856,
+   "deadline": 23.902270307301166,
+   "on_time": false
+  },
+  {
+   "layout": "campus1",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 1,
+   "dock": 2,
+   "zone": 11,
+   "status": "succeeded",
+   "arrival": 24.024,
+   "model_time": 10.82842712474619,
+   "deadline": 23.902270307301166,
+   "on_time": false
+  },
+  {
+   "layout": "campus1",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 2,
+   "dock": 5,
+   "zone": 11,
+   "status": "succeeded",
+   "arrival": 9.887999999999991,
+   "model_time": 7.495093791412856,
+   "deadline": 23.902270307301166,
+   "on_time": true
+  },
+  {
+   "layout": "campus1",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 8,
+   "zone": 5,
+   "status": "succeeded",
+   "arrival": 19.38799999999999,
+   "model_time": 18.990187582825715,
+   "deadline": 23.902270307301166,
+   "on_time": true
+  },
+  {
+   "layout": "campus1",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 1,
+   "dock": 6,
+   "zone": 9,
+   "status": "succeeded",
+   "arrival": 12.903999999999996,
+   "model_time": 11.428090415820636,
+   "deadline": 23.902270307301166,
+   "on_time": true
+  },
+  {
+   "layout": "campus1",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 2,
+   "dock": 10,
+   "zone": 9,
+   "status": "succeeded",
+   "arrival": 5.716000000000008,
+   "model_time": 5.885618083164126,
+   "deadline": 23.902270307301166,
+   "on_time": true
+  },
+  {
+   "layout": "campus1",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 0,
+   "dock": 6,
+   "zone": 9,
+   "status": "succeeded",
+   "arrival": 13.063999999999993,
+   "model_time": 11.428090415820636,
+   "deadline": 23.902270307301166,
+   "on_time": true
+  },
+  {
+   "layout": "campus1",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 1,
+   "dock": 8,
+   "zone": 5,
+   "status": "succeeded",
+   "arrival": 19.312000000000012,
+   "model_time": 18.990187582825715,
+   "deadline": 23.902270307301166,
+   "on_time": true
+  },
+  {
+   "layout": "campus1",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 2,
+   "dock": 10,
+   "zone": 9,
+   "status": "succeeded",
+   "arrival": 5.704000000000008,
+   "model_time": 5.885618083164126,
+   "deadline": 23.902270307301166,
+   "on_time": true
+  },
+  {
+   "layout": "campus2",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 0,
+   "dock": 0,
+   "zone": 9,
+   "status": "succeeded",
+   "arrival": 5.9879999999999995,
+   "model_time": 5.6094757082487305,
+   "deadline": 24.665993248815553,
+   "on_time": true
+  },
+  {
+   "layout": "campus3",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 0,
+   "dock": 1,
+   "zone": 5,
+   "status": "succeeded",
+   "arrival": 9.332,
+   "model_time": 8.43790283299492,
+   "deadline": 23.510120241040603,
+   "on_time": true
+  },
+  {
+   "layout": "campus3",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 7,
+   "zone": 10,
+   "status": "succeeded",
+   "arrival": 18.208000000000002,
+   "model_time": 17.98037516565143,
+   "deadline": 23.510120241040603,
+   "on_time": true
+  },
+  {
+   "layout": "campus3",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 0,
+   "dock": 1,
+   "zone": 5,
+   "status": "succeeded",
+   "arrival": 9.424,
+   "model_time": 8.43790283299492,
+   "deadline": 23.510120241040603,
+   "on_time": true
+  },
+  {
+   "layout": "campus3",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 7,
+   "zone": 10,
+   "status": "succeeded",
+   "arrival": 18.211999999999996,
+   "model_time": 17.98037516565143,
+   "deadline": 23.510120241040603,
+   "on_time": true
+  },
+  {
+   "layout": "campus3",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 7,
+   "zone": 10,
+   "status": "succeeded",
+   "arrival": 18.228,
+   "model_time": 17.98037516565143,
+   "deadline": 23.510120241040603,
+   "on_time": true
+  },
+  {
+   "layout": "campus3",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 7,
+   "zone": 10,
+   "status": "succeeded",
+   "arrival": 18.200000000000003,
+   "model_time": 17.98037516565143,
+   "deadline": 23.510120241040603,
+   "on_time": true
+  },
+  {
+   "layout": "campus3",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 1,
+   "dock": 7,
+   "zone": 10,
+   "status": "succeeded",
+   "arrival": 18.248000000000005,
+   "model_time": 17.98037516565143,
+   "deadline": 23.510120241040603,
+   "on_time": true
+  },
+  {
+   "layout": "campus3",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 0,
+   "dock": 4,
+   "zone": 9,
+   "status": "succeeded",
+   "arrival": 16.464,
+   "model_time": 14.990187582825714,
+   "deadline": 23.510120241040603,
+   "on_time": true
+  },
+  {
+   "layout": "campus3",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 1,
+   "dock": 9,
+   "zone": 9,
+   "status": "succeeded",
+   "arrival": 15.219999999999999,
+   "model_time": 12.647041832318097,
+   "deadline": 23.510120241040603,
+   "on_time": true
+  },
+  {
+   "layout": "campus3",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 2,
+   "dock": 10,
+   "zone": 9,
+   "status": "succeeded",
+   "arrival": 10.639999999999986,
+   "model_time": 9.885618083164127,
+   "deadline": 23.510120241040603,
+   "on_time": true
+  },
+  {
+   "layout": "campus4",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 9,
+   "zone": 7,
+   "status": "succeeded",
+   "arrival": 19.38,
+   "model_time": 16.2761423749154,
+   "deadline": 23.119595949289334,
+   "on_time": true
+  },
+  {
+   "layout": "campus4",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 1,
+   "dock": 4,
+   "zone": 5,
+   "status": "succeeded",
+   "arrival": 12.955999999999996,
+   "model_time": 13.266329957741112,
+   "deadline": 23.119595949289334,
+   "on_time": true
+  },
+  {
+   "layout": "office0",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 1,
+   "dock": 7,
+   "zone": 8,
+   "status": "aborted",
+   "arrival": 24.259999999999998,
+   "model_time": 8.714045207910317,
+   "deadline": 24.41665222413704,
+   "on_time": false
+  },
+  {
+   "layout": "office0",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 11,
+   "zone": 6,
+   "status": "succeeded",
+   "arrival": 14.868,
+   "model_time": 13.037566124069366,
+   "deadline": 24.41665222413704,
+   "on_time": true
+  },
+  {
+   "layout": "office0",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 0,
+   "dock": 3,
+   "zone": 10,
+   "status": "succeeded",
+   "arrival": 28.995999999999995,
+   "model_time": 18.142135623730955,
+   "deadline": 24.41665222413704,
+   "on_time": false
+  },
+  {
+   "layout": "office0",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 1,
+   "dock": 4,
+   "zone": 10,
+   "status": "succeeded",
+   "arrival": 20.503999999999998,
+   "model_time": 19.26632995774111,
+   "deadline": 24.41665222413704,
+   "on_time": true
+  },
+  {
+   "layout": "office0",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 2,
+   "dock": 11,
+   "zone": 10,
+   "status": "succeeded",
+   "arrival": 14.372,
+   "model_time": 13.589850873900161,
+   "deadline": 24.41665222413704,
+   "on_time": true
+  },
+  {
+   "layout": "office0",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 1,
+   "dock": 7,
+   "zone": 8,
+   "status": "aborted",
+   "arrival": 24.564000000000007,
+   "model_time": 8.714045207910317,
+   "deadline": 24.41665222413704,
+   "on_time": false
+  },
+  {
+   "layout": "office0",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 11,
+   "zone": 6,
+   "status": "succeeded",
+   "arrival": 14.816000000000003,
+   "model_time": 13.037566124069366,
+   "deadline": 24.41665222413704,
+   "on_time": true
+  },
+  {
+   "layout": "office0",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 1,
+   "dock": 10,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 7.555999999999997,
+   "model_time": 6.2761423749153975,
+   "deadline": 24.41665222413704,
+   "on_time": true
+  },
+  {
+   "layout": "office0",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 11,
+   "zone": 6,
+   "status": "succeeded",
+   "arrival": 14.927999999999997,
+   "model_time": 13.037566124069366,
+   "deadline": 24.41665222413704,
+   "on_time": true
+  },
+  {
+   "layout": "office1",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 0,
+   "dock": 1,
+   "zone": 6,
+   "status": "succeeded",
+   "arrival": 16.772,
+   "model_time": 17.313708498984763,
+   "deadline": 27.73103414097291,
+   "on_time": true
+  },
+  {
+   "layout": "office1",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 1,
+   "dock": 4,
+   "zone": 1,
+   "status": "succeeded",
+   "arrival": 20.247999999999998,
+   "model_time": 19.08494466531302,
+   "deadline": 27.73103414097291,
+   "on_time": true
+  },
+  {
+   "layout": "office1",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 10,
+   "zone": 7,
+   "status": "succeeded",
+   "arrival": 24.939999999999998,
+   "model_time": 23.24670512339254,
+   "deadline": 27.73103414097291,
+   "on_time": true
+  },
+  {
+   "layout": "office1",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 0,
+   "dock": 2,
+   "zone": 6,
+   "status": "succeeded",
+   "arrival": 20.307999999999993,
+   "model_time": 18.142135623730955,
+   "deadline": 27.73103414097291,
+   "on_time": true
+  },
+  {
+   "layout": "office1",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 10,
+   "zone": 3,
+   "status": "succeeded",
+   "arrival": 18.63600000000001,
+   "model_time": 18.599663291074446,
+   "deadline": 27.73103414097291,
+   "on_time": true
+  },
+  {
+   "layout": "office1",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 0,
+   "dock": 4,
+   "zone": 1,
+   "status": "succeeded",
+   "arrival": 20.256,
+   "model_time": 19.08494466531302,
+   "deadline": 27.73103414097291,
+   "on_time": true
+  },
+  {
+   "layout": "office2",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 1,
+   "dock": 4,
+   "zone": 9,
+   "status": "succeeded",
+   "arrival": 15.204,
+   "model_time": 14.599663291074444,
+   "deadline": 23.79018758282571,
+   "on_time": true
+  },
+  {
+   "layout": "office2",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 8,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 17.288,
+   "model_time": 15.704232790736034,
+   "deadline": 23.79018758282571,
+   "on_time": true
+  },
+  {
+   "layout": "office2",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 8,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 17.299999999999997,
+   "model_time": 15.704232790736034,
+   "deadline": 23.79018758282571,
+   "on_time": true
+  },
+  {
+   "layout": "office2",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 8,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 17.252000000000002,
+   "model_time": 15.704232790736034,
+   "deadline": 23.79018758282571,
+   "on_time": true
+  },
+  {
+   "layout": "office2",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 1,
+   "dock": 7,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 15.248000000000005,
+   "model_time": 13.428090415820636,
+   "deadline": 23.79018758282571,
+   "on_time": true
+  },
+  {
+   "layout": "office2",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 2,
+   "dock": 8,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 17.22,
+   "model_time": 15.704232790736034,
+   "deadline": 23.79018758282571,
+   "on_time": true
+  },
+  {
+   "layout": "office2",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 0,
+   "dock": 4,
+   "zone": 9,
+   "status": "succeeded",
+   "arrival": 15.171999999999997,
+   "model_time": 14.599663291074444,
+   "deadline": 23.79018758282571,
+   "on_time": true
+  },
+  {
+   "layout": "office2",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 8,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 17.367999999999995,
+   "model_time": 15.704232790736034,
+   "deadline": 23.79018758282571,
+   "on_time": true
+  },
+  {
+   "layout": "office2",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 1,
+   "dock": 5,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 7.516000000000005,
+   "model_time": 5.656854249492381,
+   "deadline": 23.79018758282571,
+   "on_time": true
+  },
+  {
+   "layout": "office2",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 2,
+   "dock": 8,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 17.260000000000005,
+   "model_time": 15.704232790736034,
+   "deadline": 23.79018758282571,
+   "on_time": true
+  },
+  {
+   "layout": "office2",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 8,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 17.355999999999995,
+   "model_time": 15.704232790736034,
+   "deadline": 23.79018758282571,
+   "on_time": true
+  },
+  {
+   "layout": "office2",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 8,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 17.316000000000003,
+   "model_time": 15.704232790736034,
+   "deadline": 23.79018758282571,
+   "on_time": true
+  },
+  {
+   "layout": "office2",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 1,
+   "dock": 5,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 7.527999999999992,
+   "model_time": 5.656854249492381,
+   "deadline": 23.79018758282571,
+   "on_time": true
+  },
+  {
+   "layout": "office2",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 2,
+   "dock": 7,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 15.680000000000007,
+   "model_time": 13.428090415820636,
+   "deadline": 23.79018758282571,
+   "on_time": true
+  },
+  {
+   "layout": "office3",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 1,
+   "dock": 3,
+   "zone": 1,
+   "status": "succeeded",
+   "arrival": 11.415999999999999,
+   "model_time": 11.218951416497461,
+   "deadline": 20.458480024001688,
+   "on_time": true
+  },
+  {
+   "layout": "office3",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 0,
+   "dock": 1,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 6.6200000000000045,
+   "model_time": 6.2761423749153975,
+   "deadline": 20.458480024001688,
+   "on_time": true
+  },
+  {
+   "layout": "office3",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 1,
+   "dock": 5,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 11.536000000000001,
+   "model_time": 11.885618083164127,
+   "deadline": 20.458480024001688,
+   "on_time": true
+  },
+  {
+   "layout": "office3",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 2,
+   "dock": 8,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 12.82,
+   "model_time": 10.875805665989843,
+   "deadline": 20.458480024001688,
+   "on_time": true
+  },
+  {
+   "layout": "office3",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 8,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 11.984000000000002,
+   "model_time": 10.875805665989843,
+   "deadline": 20.458480024001688,
+   "on_time": true
+  },
+  {
+   "layout": "office3",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 10,
+   "zone": 1,
+   "status": "succeeded",
+   "arrival": 11.980000000000004,
+   "model_time": 10.047378541243651,
+   "deadline": 20.458480024001688,
+   "on_time": true
+  },
+  {
+   "layout": "office3",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 10,
+   "zone": 1,
+   "status": "succeeded",
+   "arrival": 11.843999999999994,
+   "model_time": 10.047378541243651,
+   "deadline": 20.458480024001688,
+   "on_time": true
+  },
+  {
+   "layout": "office4",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 9,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 13.924,
+   "model_time": 12.875805665989843,
+   "deadline": 19.921221723798638,
+   "on_time": true
+  },
+  {
+   "layout": "office4",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 9,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 13.956,
+   "model_time": 12.875805665989843,
+   "deadline": 19.921221723798638,
+   "on_time": true
+  },
+  {
+   "layout": "warehouse0",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 1,
+   "dock": 5,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 11.552,
+   "model_time": 9.60947570824873,
+   "deadline": 22.097056274847716,
+   "on_time": true
+  },
+  {
+   "layout": "warehouse0",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 2,
+   "dock": 11,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 13.623999999999999,
+   "model_time": 14.047378541243651,
+   "deadline": 22.097056274847716,
+   "on_time": true
+  },
+  {
+   "layout": "warehouse0",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 11,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 14.18,
+   "model_time": 14.047378541243651,
+   "deadline": 22.097056274847716,
+   "on_time": true
+  },
+  {
+   "layout": "warehouse0",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 1,
+   "dock": 5,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 11.628,
+   "model_time": 9.60947570824873,
+   "deadline": 22.097056274847716,
+   "on_time": true
+  },
+  {
+   "layout": "warehouse0",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 2,
+   "dock": 11,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 13.604,
+   "model_time": 14.047378541243651,
+   "deadline": 22.097056274847716,
+   "on_time": true
+  },
+  {
+   "layout": "warehouse0",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 1,
+   "dock": 5,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 11.588000000000008,
+   "model_time": 9.60947570824873,
+   "deadline": 22.097056274847716,
+   "on_time": true
+  },
+  {
+   "layout": "warehouse0",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 2,
+   "dock": 11,
+   "zone": 8,
+   "status": "succeeded",
+   "arrival": 13.623999999999995,
+   "model_time": 14.047378541243651,
+   "deadline": 22.097056274847716,
+   "on_time": true
+  },
+  {
+   "layout": "warehouse1",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 7,
+   "zone": 3,
+   "status": "succeeded",
+   "arrival": 20.6,
+   "model_time": 20.0,
+   "deadline": 24.672217408045675,
+   "on_time": true
+  },
+  {
+   "layout": "warehouse4",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 0,
+   "dock": 0,
+   "zone": 10,
+   "status": "succeeded",
+   "arrival": 20.607999999999997,
+   "model_time": 17.60947570824873,
+   "deadline": 25.178749391142127,
+   "on_time": true
+  },
+  {
+   "layout": "warehouse4",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 1,
+   "dock": 1,
+   "zone": 10,
+   "status": "succeeded",
+   "arrival": 8.987999999999998,
+   "model_time": 8.43790283299492,
+   "deadline": 25.178749391142127,
+   "on_time": true
+  },
+  {
+   "layout": "warehouse4",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 3,
+   "zone": 11,
+   "status": "succeeded",
+   "arrival": 8.371999999999998,
+   "model_time": 6.552284749830793,
+   "deadline": 25.178749391142127,
+   "on_time": true
+  },
+  {
+   "layout": "warehouse4",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 0,
+   "dock": 0,
+   "zone": 10,
+   "status": "succeeded",
+   "arrival": 21.147999999999996,
+   "model_time": 17.60947570824873,
+   "deadline": 25.178749391142127,
+   "on_time": true
+  },
+  {
+   "layout": "warehouse4",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 1,
+   "dock": 1,
+   "zone": 10,
+   "status": "succeeded",
+   "arrival": 9.035999999999994,
+   "model_time": 8.43790283299492,
+   "deadline": 25.178749391142127,
+   "on_time": true
+  },
+  {
+   "layout": "warehouse4",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 7,
+   "zone": 11,
+   "status": "succeeded",
+   "arrival": 14.927999999999997,
+   "model_time": 13.771236166328253,
+   "deadline": 25.178749391142127,
+   "on_time": true
+  },
+  {
+   "layout": "warehouse4",
+   "concurrent": false,
+   "offset": 0.0,
+   "robot": 2,
+   "dock": 7,
+   "zone": 10,
+   "status": "succeeded",
+   "arrival": 12.816000000000003,
+   "model_time": 11.495093791412856,
+   "deadline": 25.178749391142127,
+   "on_time": true
+  },
+  {
+   "layout": "warehouse4",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 0,
+   "dock": 1,
+   "zone": 10,
+   "status": "succeeded",
+   "arrival": 9.787999999999997,
+   "model_time": 8.43790283299492,
+   "deadline": 25.178749391142127,
+   "on_time": true
+  },
+  {
+   "layout": "warehouse4",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 2,
+   "dock": 7,
+   "zone": 10,
+   "status": "succeeded",
+   "arrival": 12.271999999999991,
+   "model_time": 11.495093791412856,
+   "deadline": 25.178749391142127,
+   "on_time": true
+  },
+  {
+   "layout": "warehouse4",
+   "concurrent": true,
+   "offset": 0.0,
+   "robot": 0,
+   "dock": 0,
+   "zone": 10,
+   "status": "succeeded",
+   "arrival": 32.968,
+   "model_time": 17.60947570824873,
+   "deadline": 25.178749391142127,
+   "on_time": false
+  },
+  {
+   "layout": "warehouse4",
+   "concurrent": true,
+   "offset": 1.4142135623730951,
+   "robot": 2,
+   "dock": 7,
+   "zone": 10,
+   "status": "succeeded",
+   "arrival": 12.364000000000004,
+   "model_time": 11.495093791412856,
+   "deadline": 25.178749391142127,
+   "on_time": true
+  }
+ ]
+}

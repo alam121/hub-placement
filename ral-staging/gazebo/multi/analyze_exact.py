@@ -78,6 +78,11 @@ summ = dict(mode=MODE, layouts=len(rows), dispatches=len(disp), concurrent_dispa
             layouts_realized_positive=int((rg > 1e-9).sum()), layouts_model_positive=int((mg > 1e-9).sum()),
             layouts_realized_eq_model=int(sum(abs(a - b) < 1e-6 for a, b in zip(rg, mg))),
             mean_P=float(np.mean([r["P"] for r in rows])),
+            fixed_fail_layouts=[r["layout"] for r in rows if abs(np.mean(r["realized_fixed"]) - r["P"]) > 1e-9],
+            model_gain_excl_fixed_fail=ci(np.array([r["model_gain"] for r in rows if abs(np.mean(r["realized_fixed"]) - r["P"]) <= 1e-9])),
+            realized_gain_excl_fixed_fail=ci(np.array([np.mean(r["realized_gain"]) for r in rows if abs(np.mean(r["realized_fixed"]) - r["P"]) <= 1e-9])),
+            median_model_gain=float(np.median(mg)), median_realized_gain=float(np.median(rg)),
+            rep_gain_spread_max=float(max(np.ptp(r["realized_gain"]) for r in rows)),
             mean_realized_fixed=float(np.mean([np.mean(r["realized_fixed"]) for r in rows])))
 json.dump(dict(summary=summ, layouts=rows, failed_arcs=failed, legs=legs_all), open(f"{B}/summary{'_willow' if all('willow' in L for L in lays) else ''}.json", "w"), indent=1, default=float)
 print(json.dumps(summ, indent=1))

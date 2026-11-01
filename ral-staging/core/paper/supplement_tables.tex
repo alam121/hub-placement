@@ -261,7 +261,7 @@ dense & uniform random & \multicolumn{5}{l}{$-4.3\pm6.1$ (1/5) / $-5.5\pm6.7$ (1
 dense & concealed q0 & \multicolumn{5}{l}{$2.7\pm5.6$ (3/5) / $1.7\pm5.0$ (2/5) / $1.1\pm4.4$ (2/5)}\\
 dense & leakage aware & \multicolumn{5}{l}{$2.7\pm5.6$ (3/5) / $1.0\pm2.0$ (2/5) / $0.7\pm1.3$ (2/5)}\\
 \bottomrule\end{tabular}\end{table}
-\begin{table}[h]\centering\caption{Concurrent Nav2 execution of every dispatch the policies can produce, model reachability. Three Nav2 stacks run throughout; robots perceive each other through shared poses. Values are exact expectations over the policy distribution and robot success draws, with Nav2 deciding which legs are on time. Totals: 79 dispatches (58 with $\ge$2 robots moving, 20 with 3), 157 legs, 128 on time, 6 aborted, 23 late.}\label{tab:s-exact-model}\scriptsize
+\begin{table}[h]\centering\caption{Concurrent Nav2 execution of every dispatch the policies can produce, model reachability. Three Nav2 stacks run throughout; robots perceive each other through shared poses. Values are exact expectations over the policy distribution and robot success draws, with Nav2 deciding which legs are on time. Per repetition: 79 dispatches (58 with $\ge$2 robots moving, 20 with 3), 157 legs, 128 on time, 6 aborted, 23 late.}\label{tab:s-exact-model}\scriptsize
 \begin{tabular}{@{}lrrrrrl@{}}\toprule layout & pairs & $P$ (model) & fixed (Nav2) & gain model (\%) & gain Nav2 (\%) & failed arcs (dock,zone)\\\midrule
 campus0 & 11 & 13.53 & 13.53 & 11.5 & 10.1 & (0,11)\\
 campus1 & 11 & 12.70 & 12.70 & 16.1 & 14.4 & (11,9)\\
@@ -280,10 +280,10 @@ warehouse3 & 6 & 14.37 & 14.37 & 2.4 & -3.4 & (7,3)\\
 warehouse4 & 9 & 12.70 & 12.70 & 10.5 & 8.4 & (0,11)\\
 \midrule mean $\pm$ 95\% CI & & & & $7.5\pm2.5$ & $3.3\pm4.9$ & \\
 \bottomrule\end{tabular}\end{table}
-\begin{table}[h]\centering\caption{Concurrent Nav2 execution of every dispatch the policies can produce, slack-verified reachability (slack $\ge$ 3.8\,s, fixed before these runs). Three Nav2 stacks run throughout; robots perceive each other through shared poses. Values are exact expectations over the policy distribution and robot success draws, with Nav2 deciding which legs are on time. Totals: 52 dispatches (27 with $\ge$2 robots moving, 8 with 3), 87 legs, 80 on time, 2 aborted, 5 late.}\label{tab:s-exact-verified}\scriptsize
+\begin{table}[h]\centering\caption{Concurrent Nav2 execution of every dispatch the policies can produce, slack-verified reachability (slack $\ge$ 3.8\,s, fixed before these runs), each dispatch executed three times; Nav2 gains are means over the three repetitions. Run-to-run variability: median arrival spread 0.09\,s, 3 of 87 legs changed on-time status, maximum spread 59\,s (converging robots). Three Nav2 stacks run throughout; robots perceive each other through shared poses. Values are exact expectations over the policy distribution and robot success draws, with Nav2 deciding which legs are on time. Per repetition: 52 dispatches (27 with $\ge$2 robots moving, 8 with 3), 87 legs, 80 on time, 2 aborted, 5 late.}\label{tab:s-exact-verified_all}\scriptsize
 \begin{tabular}{@{}lrrrrrl@{}}\toprule layout & pairs & $P$ (model) & fixed (Nav2) & gain model (\%) & gain Nav2 (\%) & failed arcs (dock,zone)\\\midrule
 campus0 & 6 & 12.70 & 12.70 & 7.6 & 7.6 & --\\
-campus1 & 9 & 12.70 & 12.70 & 16.1 & 7.0 & (2,11), (5,11)\\
+campus1 & 9 & 12.70 & 12.70 & 16.1 & 10.8 & (2,11), (5,11)\\
 campus2 & 6 & 14.03 & 14.03 & 2.8 & 2.8 & --\\
 campus3 & 10 & 13.53 & 13.53 & 7.5 & 7.5 & --\\
 campus4 & 3 & 14.37 & 14.37 & 0.5 & 0.5 & --\\
@@ -297,9 +297,9 @@ warehouse1 & 7 & 11.03 & 11.03 & 2.6 & 2.6 & --\\
 warehouse2 & 4 & 11.53 & 11.53 & 1.5 & 1.5 & --\\
 warehouse3 & 1 & 13.53 & 13.53 & 0.0 & 0.0 & --\\
 warehouse4 & 6 & 12.65 & 10.20 & 3.2 & 27.9 & (0,10)\\
-\midrule mean $\pm$ 95\% CI & & & & $5.3\pm2.5$ & $5.4\pm3.9$ & \\
+\midrule mean $\pm$ 95\% CI & & & & $5.3\pm2.5$ & $5.7\pm3.9$ & \\
 \bottomrule\end{tabular}\end{table}
-\begin{table}[h]\centering\caption{Concurrent Nav2 execution of every dispatch the policies can produce, concurrency-aware reachability (additionally, for zones served by $\ge2$ robots, slack $\ge$ 9.66\,s: the 95th percentile of shared-zone arrival delays in the model-reachability round, computed on the 14 layouts complete when this round was planned; 9.6\,s on all 15). Three Nav2 stacks run throughout; robots perceive each other through shared poses. Values are exact expectations over the policy distribution and robot success draws, with Nav2 deciding which legs are on time. Totals: 22 dispatches (10 with $\ge$2 robots moving, 3 with 3), 35 legs, 32 on time, 1 aborted, 2 late.}\label{tab:s-exact-verified2}\scriptsize
+\begin{table}[h]\centering\caption{Concurrent Nav2 execution of every dispatch the policies can produce, concurrency-aware reachability (additionally, for zones served by $\ge2$ robots, slack $\ge$ 9.66\,s: the 95th percentile of shared-zone arrival delays in the model-reachability round, computed on the 14 layouts complete when this round was planned; 9.6\,s on all 15). Three Nav2 stacks run throughout; robots perceive each other through shared poses. Values are exact expectations over the policy distribution and robot success draws, with Nav2 deciding which legs are on time. Per repetition: 22 dispatches (10 with $\ge$2 robots moving, 3 with 3), 35 legs, 32 on time, 1 aborted, 2 late.}\label{tab:s-exact-verified2}\scriptsize
 \begin{tabular}{@{}lrrrrrl@{}}\toprule layout & pairs & $P$ (model) & fixed (Nav2) & gain model (\%) & gain Nav2 (\%) & failed arcs (dock,zone)\\\midrule
 campus0 & 1 & 12.70 & 12.70 & 0.0 & 0.0 & --\\
 campus1 & 9 & 12.70 & 12.70 & 16.1 & 7.0 & (2,11)\\

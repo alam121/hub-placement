@@ -111,16 +111,18 @@ if os.path.exists(f"{R}/willow_results.json"):
     T("\\bottomrule\\end{tabular}\\end{table}")
 
 # S-XII exact-expectation concurrent Nav2 runs (three Nav2 stacks, fleet perception, all 15 layouts)
-modes = {"model": "model reachability", "verified": "slack-verified reachability (slack $\\ge$ 3.8\\,s, fixed before these runs)",
+var = json.load(open(f"{G}/multi/exact/verified_all/variability.json"))["summary"]
+modes = {"model": "model reachability", "verified_all": ("slack-verified reachability (slack $\\ge$ 3.8\\,s, fixed before these runs), each dispatch executed three times; Nav2 gains are means over the three repetitions. "
+         f"Run-to-run variability: median arrival spread {var['range_median']:.2f}\\,s, {var['on_time_flips']} of {var['legs_with_reps']} legs changed on-time status, maximum spread {var['range_max']:.0f}\\,s (converging robots)"),
          "verified2": "concurrency-aware reachability (additionally, for zones served by $\\ge2$ robots, slack $\\ge$ 9.66\\,s: the 95th percentile of shared-zone arrival delays in the model-reachability round, computed on the 14 layouts complete when this round was planned; 9.6\\,s on all 15)"}
 for M, desc, suf in [(m, d, "") for m, d in modes.items()] + [("model", "Willow Garage floor plan, model reachability", "_willow"),
-                                                             ("verified", "Willow Garage floor plan, slack-verified reachability", "_willow")]:
+                                                             ("verified_all", "Willow Garage floor plan, slack-verified reachability", "_willow")]:
     p = f"{G}/multi/exact/{M}/summary{suf}.json"
     if not os.path.exists(p): continue
     sm = json.load(open(p))
     s = sm["summary"]
     T(f"\\begin{{table}}[h]\\centering\\caption{{Concurrent Nav2 execution of every dispatch the policies can produce, {desc}. Three Nav2 stacks run throughout; robots perceive each other through shared poses. Values are exact expectations over the policy distribution and robot success draws, with Nav2 deciding which legs are on time. "
-      f"Totals: {s['dispatches']} dispatches ({s['concurrent_dispatches']} with $\\ge$2 robots moving, {s['concurrent_3']} with 3), {s['legs']} legs, {s['on_time']} on time, {s['aborted']} aborted, {s['late']} late.}}\\label{{tab:s-exact-{M}{suf}}}\\scriptsize")
+      f"Per repetition: {s['dispatches']} dispatches ({s['concurrent_dispatches']} with $\\ge$2 robots moving, {s['concurrent_3']} with 3), {s['legs']} legs, {s['on_time']} on time, {s['aborted']} aborted, {s['late']} late.}}\\label{{tab:s-exact-{M}{suf}}}\\scriptsize")
     T("\\begin{tabular}{@{}lrrrrrl@{}}\\toprule layout & pairs & $P$ (model) & fixed (Nav2) & gain model (\\%) & gain Nav2 (\\%) & failed arcs (dock,zone)\\\\\\midrule")
     for r in sm["layouts"]:
         nd = sum(1 for d in sm["legs"] if d["layout"] == r["layout"])

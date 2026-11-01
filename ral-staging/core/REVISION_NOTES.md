@@ -98,3 +98,17 @@
 - No hardware or real alarm data: still a limitation.
 
 **Housekeeping.** The Gazebo single-robot figure moved to Supp. Fig. S2 to keep 8 pages. The abstract is 249 words. Tables renumbered: I prior work, II scaling, III sensitivity, IV concurrent Nav2.
+
+# Third pass (remaining weaknesses)
+
+- **Remark 2 correction.** The end-to-end objective z(x) - q_eff(x)(z(x) - b(x)) multiplies a quadratic q_eff(x) by the piecewise-linear z(x) - b(x). It is piecewise cubic and in general not concave, not quadratic as previously stated. The exposure study already used the best of the exogenous optima rather than a claimed global optimum, so no result changes.
+- **Novelty.** Sec. V now explains why separation is the hard step: marginal-coverage best responses decompose across targets, while here the recourse couples zones through shared docks. The joint-recourse bound is admissible for all configurations at once because it relies only on monotonicity of feasibility under extra load. The exact q* replaces bisection (an interval, one full constraint-generation solve per step) with one linear-fractional program that returns the exact breakpoint.
+- **Outlier-adjusted Nav2 result leads.** The text and Table IV now lead with the 14-layout figure (Nav2 4.1 +- 2.1% vs planned 5.4 +- 2.7%, bold in the table). The 15-layout mean (5.7 +- 3.9%) is reported with the explicit note that we do not rely on it.
+- **Repeated trials.** The slack-verified round was executed three times (156 dispatches, 261 legs, 245 on time):
+  - Median per-leg arrival spread across repetitions: 0.09 s.
+  - 3 of 87 legs changed on-time status, and only one layout's gain changed (campus1: 7.0 / 16.1 / 9.3%).
+  - All 16 failures and every spread above 3.1 s come from converging robots (10) or the office wall stall (6; that arc failed in all 8 uses across rounds). The maximum converging-robot delay was 65 s.
+  - Data: `gz/multi/exact/verified_all`, `merge_reps.py`, `variability.json`.
+- **Real-map wording.** The Willow study is described as a simulation on the map of a real building, with no physical robots (abstract and Sec. VI).
+- **Assumptions justified.** Sec. III now motivates all-or-nothing restoration (joint containment or inspection) and independent success (individual navigation and manipulation errors), and points to common-cause failures as out of scope and to the partial-credit analysis.
+- **Space.** The validation, Gazebo setup, relocation and closed-loop setup paragraphs were condensed. The paper is 8 pages; the abstract is 249 words.
