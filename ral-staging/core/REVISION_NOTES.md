@@ -50,7 +50,7 @@
 - New concurrent three-robot Nav2 experiment (`gz/multi`; Supp. S6–S11): 46 shifts, 53 legs, 23 with concurrent motion.
   - Arrivals are 0.95 s later than the model on average, and concurrency caused no failures.
   - Two deterministic model–Nav2 discrepancies erased part or all of the benefit (warehouse +6.5% vs. a model +11.4%; office 0.0% vs. a model +10.3%).
-  - Re-planning on Nav2-verified reachability restores it: +3.4% and +15.8%, with every dispatched leg on time and realized value matching the model.
+  - Re-planning on Nav2-verified reachability restores it: +3.4% and +15.7%, with every dispatched leg on time and realized value matching the model.
   - The behaviour-tree acknowledgement timeouts with three full stacks on two cores are reported in Supp. S10–S11.
 - The abstract and conclusion now state these results and this scope.
 
