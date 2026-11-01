@@ -1,0 +1,70 @@
+[
+ {
+  "pair": 0,
+  "rep": 0,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 1,
+  "rep": 0,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 2,
+  "rep": 0,
+  "legs": [
+   {
+    "robot": 2,
+    "dock": 9,
+    "zone": 8,
+    "status": "succeeded",
+    "arrival": 13.924,
+    "model_time": 12.875805665989843,
+    "deadline": 19.921221723798638,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 43.28972164382676,
+  "concurrent": false,
+  "overlap_s": 0.0,
+  "wall_s": 29.629762887954712
+ },
+ {
+  "pair": 3,
+  "rep": 0,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 4,
+  "rep": 0,
+  "legs": [
+   {
+    "robot": 2,
+    "dock": 9,
+    "zone": 8,
+    "status": "succeeded",
+    "arrival": 13.956,
+    "model_time": 12.875805665989843,
+    "deadline": 19.921221723798638,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 18.38477631085023,
+  "concurrent": false,
+  "overlap_s": 0.0,
+  "wall_s": 29.506247997283936
+ },
+ {
+  "pair": 5,
+  "rep": 0,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ }
+]

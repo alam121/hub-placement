@@ -52,3 +52,26 @@ cd paper && latexmk -pdf main.tex
 ```
 Gazebo/Nav2 (ROS 2 Jazzy, Gazebo Harmonic): see `gazebo/README.md`.
 Single-threaded NumPy/SciPy (HiGHS); all seeds are fixed in the scripts.
+
+## Concurrent multi-robot Nav2 study (Table IV; Supp. Tables S13-S15)
+
+`gazebo/multi/` runs every (configuration, attack) pair that the leakage-aware policy (q = 0.25) or the best fixed staging can produce,
+with three namespaced Nav2 stacks running throughout and robots perceiving each other through shared poses (`fleet_scan.py`).
+
+```bash
+python3 gazebo/multi/setup_exact.py <warehouse|office|campus> <layout> <model|verified|verified2> 0.5
+gazebo/multi/run_batch.sh <model|verified|verified2> warehouse0 office1 ...
+python3 gazebo/multi/analyze_exact.py <model|verified|verified2>
+```
+
+- `model`: the paper's grid reachability.
+- `verified`: drops arcs with slack below 3.8 s (95th-percentile single-robot error, fixed in advance).
+- `verified2`: additionally requires 9.66 s slack for zones served by two or more robots (`exact/shared_margin.json`).
+- `gazebo/cleanup.sh` stops all simulator and ROS processes. Its patterns are anchored to full executable paths, so it never matches the calling shell.
+- Raw per-dispatch results are `exact/<round>/<layout>/gazebo_results.json`; per-round summaries are `exact/<round>/summary.json`.
+
+## Real floor plan (Supp. Table S12)
+
+`realmaps/willow-full.pgm` is the Willow Garage office map distributed with `stage_ros` (BSD licence; https://github.com/ros-simulation/stage_ros).
+`realmaps/willow_fine.py` builds the 0.1 m geometry and the robot-radius-inflated planning grid. `core/willow_study.py` runs the exact model and the closed-loop simulation.
+`gazebo/multi/exact/willow_pilot_dispatch.json` is the Nav2 pilot dispatch on this map that aborted or ran 3x slower than the model, which is why the map is evaluated in simulation only.

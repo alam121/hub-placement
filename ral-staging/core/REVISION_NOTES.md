@@ -70,3 +70,31 @@
 - Fig. 5 has the near-deadline analysis.
 - "Worthless" is qualified everywhere.
 - Space: the simulation table and the model-vs-simulation figure moved to the supplement (Table S1, Fig. S1).
+
+# Response to the second pre-submission review (risk assessment)
+
+**1. Incremental novelty (high risk).**
+- New Table I compares the closest prior models (patrolling games, security games, leakage security games, DAD/robust siting, randomized robust optimization) on randomized first stage, partial observation, coupled recourse, marginal sufficiency and an exact threshold.
+- The "What is and is not new" paragraph now argues that the combination changes the problem class: leakage security games stay tractable *because* payoffs depend on marginals, and DAD models assume q = 1, exactly where randomization has no strict advantage (Prop. 1).
+- New empirical head-to-head with the closest prior method (`marginal_gap.py`, previously unreported): implementing the optimal marginals by comb sampling loses more than 0.1% in 152 of 321 games (up to 14.7%) and is no better than fixed staging in 63.
+
+**2. Gazebo validation dispatched one robot at a time (high risk).** Replaced by a full concurrent study (`gz/multi/setup_exact.py`, `exact_runner.py`, `analyze_exact.py`; Table IV; Supp. Tables S13-S15):
+- Every (configuration, attack) pair that the leakage-aware policy (q = 0.25) or the best fixed staging can produce, on all 15 layouts, executed with three Nav2 stacks running throughout (real-time factor 0.5 to fit two cores; all times are simulation times).
+- Robots perceive each other (virtual fleet scan from shared poses feeding an obstacle layer in local and global costmaps; startup check that every costmap is subscribed), and converging robots get distinct service points 1.4 m apart.
+- Values are exact expectations over the policy, observation event and success draws; with all legs on time they reproduce V_x(q) and P exactly, so there is no sampling noise.
+- Round 1 (model reachability): planned 7.5 +- 2.5%, Nav2 3.3 +- 4.9%, gain in 10/15 layouts, one layout -19%. 26 of 29 failed legs were on arcs with < 3.8 s slack.
+- Round 2 (slack >= 3.8 s, rule fixed before these runs from the single-robot data): planned 5.3 +- 2.5%, Nav2 5.4 +- 3.9%; 12/15 layouts realize exactly the planned value; medians equal (3.3%). The mean agreement is partly due to one layout where the fixed baseline's arc fails (28%); without it 3.8 +- 1.9% vs 5.4 +- 2.7%. This is stated in the paper.
+- Remaining failures (7/87 legs): robots converging on one zone (delays p95 9.6 s in round 1, up to 54 s in round 2; closest approach 0.49 m) and one wall-adjacent office arc that stalls the controller in all 4 uses.
+- Round 3 (additional 9.7 s margin for zones with >= 2 robots): fixes most interference failures, but leaves planned 3.3% and realized 2.0%, so the round-2 rule is recommended and converging dispatch is listed as a limitation.
+- The earlier 23-shift sampled experiment is kept in Supp. Tables S6-S11, labelled as superseded.
+
+**3. Restrictive model (medium risk).** No change to the model. Partial credit, reliability and fleet-size sensitivity remain reported as negative results, and the scope statement is unchanged.
+
+**4. Synthetic experiments (medium risk).**
+- New real floor plan: the Willow Garage office laser map (0.1 m, stage_ros), planned on the map itself with robot-radius inflation (`realmaps/willow_fine.py`, `ral/willow_study.py`; Supp. Table S12).
+  - Exact gains 10.7 / 7.0 / 4.2% at q = 0 / 0.25 / 0.5 (synthetic 11.2 / 7.5 / 4.2), mean q* 0.82.
+  - Closed loop: +7.3 / 6.6 / 5.5% (4/5 layouts each). The 95% intervals include zero with five layouts, and the paper says so. Uniform randomization loses 14-20% in every layout.
+- Nav2 on this laser map could not reliably pass its cluttered doorways (pilot dispatch aborted or took 3x the model time), even with the true rectangular footprint and 0.1 m costmaps. The paper reports it as simulation-only and says why.
+- No hardware or real alarm data: still a limitation.
+
+**Housekeeping.** The Gazebo single-robot figure moved to Supp. Fig. S2 to keep 8 pages. The abstract is 249 words. Tables renumbered: I prior work, II scaling, III sensitivity, IV concurrent Nav2.

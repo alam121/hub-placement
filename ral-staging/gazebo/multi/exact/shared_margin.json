@@ -1,0 +1,7 @@
+{
+ "p95_shared_zone_delay_s": 9.661430500338405,
+ "n_shared": 75,
+ "p95_other_s": 2.7226732128130235,
+ "n_other": 67,
+ "source": "model-reachability concurrent round, successful legs, arrival - nominal model time"
+}

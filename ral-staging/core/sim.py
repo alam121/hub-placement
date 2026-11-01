@@ -25,6 +25,11 @@ SQ2 = np.sqrt(2.0)
 
 # ---------------------------------------------------------------- maps
 def make_map(kind, seed=0, W=120, H=80):
+    if kind == "willow":   # real floor plan: Willow Garage office (stage_ros willow-full.pgm), 0.1 m navigation map
+        import sys
+        sys.path.insert(0, "/home/claude/realmaps")
+        from willow_fine import planning_grid
+        return planning_grid()
     rng = np.random.default_rng(seed)
     g = np.zeros((H, W), bool)  # True = obstacle
     g[0, :] = g[-1, :] = g[:, 0] = g[:, -1] = True
@@ -90,8 +95,11 @@ def dijkstra(obst, src):
 
 def sample_points(obst, k, rng, min_sep=8.0, avoid=()):
     free = np.argwhere(~obst)
-    pts = list(avoid); out = []
+    pts = list(avoid); out = []; tries = 0
     while len(out) < k:
+        tries += 1
+        if tries > 200000:
+            raise RuntimeError(f"cannot place {k} points with separation {min_sep} m")
         y, x = free[rng.integers(len(free))]
         if all((y - a) ** 2 + (x - b) ** 2 >= min_sep ** 2 for a, b in pts):
             pts.append((y, x)); out.append((int(y), int(x)))
@@ -102,11 +110,15 @@ def scenario(kind, seed, K=12, N=12, speed=1.5, service=30.0, density=0.20, prio
     """Builds sites, zones, path distances, and a deadline giving the target reachability density."""
     rng = np.random.default_rng(seed)
     obst = make_map(kind, seed)
+    res = 1.0
+    if kind == "willow":      # 0.1 m cells; real building is ~1/3 the area of the synthetic maps: 5 m separation
+        res = 0.1
+        min_sep = min(min_sep, 5.0) / res
     sites = sample_points(obst, K, rng, min_sep=min_sep)
     zones = sample_points(obst, N, rng, min_sep=min_sep, avoid=sites)
     dmaps = [dijkstra(obst, s) for s in sites]
-    Dsz = np.array([[dm[z] for z in zones] for dm in dmaps])          # site->zone path length (m)
-    Dss = np.array([[dm[s] for s in sites] for dm in dmaps])          # site->site
+    Dsz = res * np.array([[dm[z] for z in zones] for dm in dmaps])    # site->zone path length (m)
+    Dss = res * np.array([[dm[s] for s in sites] for dm in dmaps])    # site->site
     ttime = Dsz / speed + service
     deadline = float(np.quantile(ttime, density))
     A = (ttime <= deadline).astype(np.int64)
@@ -121,7 +133,7 @@ def scenario(kind, seed, K=12, N=12, speed=1.5, service=30.0, density=0.20, prio
     else:  # "skewed" == "zipf:1"; "zipf:a" gives v = 10 / rank^a (a = 0 is uniform but consumes the same RNG draws)
         a = 1.0 if priority == "skewed" else float(priority.split(":")[1])
         v = 10.0 / np.arange(1, N + 1) ** a; rng.shuffle(v)
-    return dict(kind=kind, obst=obst, sites=sites, zones=zones, Dsz=Dsz, Dss=Dss, A=A, v=v, c=c,
+    return dict(kind=kind, res=res, obst=obst, sites=sites, zones=zones, Dsz=Dsz, Dss=Dss, A=A, v=v, c=c,
                 p=0.7, speed=speed, service=service, deadline=deadline, dl_mat=dl_mat, seed=seed)
 
 
@@ -129,6 +141,7 @@ def scenario(kind, seed, K=12, N=12, speed=1.5, service=30.0, density=0.20, prio
 def plan(sc, placement, w):
     """Optimal served subset and dock->zone robot counts for (placement, w), nominal model."""
     A, v, c, p = sc["A"], sc["v"], sc["c"], sc["p"]
+    A2 = sc.get("A2", A)
     loaded = [j for j in range(len(w)) if w[j] > 0]
     best, bestS = -1.0, ()
     for k in range(len(loaded) + 1):
@@ -140,7 +153,7 @@ def plan(sc, placement, w):
             for i in placement:
                 G.add_edge("s", ("d", i), capacity=c)
                 for j in S:
-                    if A[i, j]:
+                    if (A2 if w[j] >= 2 else A)[i, j]:
                         G.add_edge(("d", i), ("z", j), capacity=c)
             for j in S:
                 G.add_edge(("z", j), "t", capacity=int(w[j]))
@@ -168,7 +181,11 @@ def plan(sc, placement, w):
 class Sim:
     def __init__(self, sc, m, n=6):
         self.sc, self.m, self.n = sc, m, n
-        self.P, self.W, self.U = build(dict(A=sc["A"], v=sc["v"], c=sc["c"], p=sc["p"]), m, n)
+        if "A2" in sc:
+            from evaluator import build2
+            self.P, self.W, self.U = build2(dict(A=sc["A"], A2=sc["A2"], v=sc["v"], c=sc["c"], p=sc["p"]), m, n)
+        else:
+            self.P, self.W, self.U = build(dict(A=sc["A"], v=sc["v"], c=sc["c"], p=sc["p"]), m, n)
         self.mvec = self.U.min(1)
         self.obs_attack = np.argmin(self.U, axis=1)
         self._plan_cache = {}

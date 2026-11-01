@@ -3,7 +3,8 @@ Run once after cloning:  python3 localize.py"""
 import os
 HERE = os.path.dirname(os.path.abspath(__file__))
 MAP = [("/home/claude/RAL_video_leakage_aware_staging.mp4", os.path.join(HERE, "video", "RAL_video_leakage_aware_staging.mp4")),
-       ("/home/claude/ral", os.path.join(HERE, "core")), ("/home/claude/gz", os.path.join(HERE, "gazebo"))]
+       ("/home/claude/ral", os.path.join(HERE, "core")), ("/home/claude/gz", os.path.join(HERE, "gazebo")),
+       ("/home/claude/realmaps", os.path.join(HERE, "realmaps"))]
 n = 0
 for root, _, files in os.walk(HERE):
     for f in files:

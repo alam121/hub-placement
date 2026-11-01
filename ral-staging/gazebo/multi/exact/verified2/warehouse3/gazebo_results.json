@@ -1,0 +1,22 @@
+[
+ {
+  "pair": 0,
+  "rep": 0,
+  "legs": [
+   {
+    "robot": 2,
+    "dock": 7,
+    "zone": 4,
+    "status": "succeeded",
+    "arrival": 11.448000000000002,
+    "model_time": 11.218951416497461,
+    "deadline": 25.275805665989843,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 42.444745062684,
+  "concurrent": false,
+  "overlap_s": 0.0,
+  "wall_s": 24.25394582748413
+ }
+]

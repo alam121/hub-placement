@@ -1,0 +1,49 @@
+[
+ {
+  "pair": 0,
+  "rep": 0,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 1,
+  "rep": 0,
+  "legs": [
+   {
+    "robot": 2,
+    "dock": 9,
+    "zone": 7,
+    "status": "succeeded",
+    "arrival": 19.38,
+    "model_time": 16.2761423749154,
+    "deadline": 23.119595949289334,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 31.43827858948179,
+  "concurrent": false,
+  "overlap_s": 0.0,
+  "wall_s": 49.617258071899414
+ },
+ {
+  "pair": 2,
+  "rep": 0,
+  "legs": [
+   {
+    "robot": 1,
+    "dock": 4,
+    "zone": 5,
+    "status": "succeeded",
+    "arrival": 12.955999999999996,
+    "model_time": 13.266329957741112,
+    "deadline": 23.119595949289334,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 27.11996352105745,
+  "concurrent": false,
+  "overlap_s": 0.0,
+  "wall_s": 33.112858295440674
+ }
+]

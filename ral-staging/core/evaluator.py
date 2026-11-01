@@ -107,3 +107,36 @@ def build(inst, m, n):
     W = compositions(n, N)
     U = full_matrix(dmasks, W, covmask, inst["v"].astype(float), int(inst["c"]), float(inst["p"]))
     return P, W, U
+
+
+# ---- concurrency-aware variant: zones loaded with >= 2 alarms use a stricter reachability mask (covmask2),
+# because robots converging on one zone delay each other (measured in the concurrent Nav2 runs).
+@njit(cache=True)
+def terminal2(dmask, w, covmask, covmask2, v, c, p):
+    N = w.shape[0]
+    cm = np.empty(N, np.int64)
+    for j in range(N):
+        cm[j] = covmask2[j] if w[j] >= 2 else covmask[j]
+    return terminal(dmask, w, cm, v, c, p)
+
+
+@njit(cache=True)
+def full_matrix2(dmasks, W, covmask, covmask2, v, c, p):
+    D = dmasks.shape[0]
+    A = W.shape[0]
+    U = np.empty((D, A))
+    for i in range(D):
+        for k in range(A):
+            U[i, k] = terminal2(dmasks[i], W[k], covmask, covmask2, v, c, p)
+    return U
+
+
+def build2(inst, m, n):
+    """inst['A'] for single-alarm zones, inst['A2'] (subset of A) for zones with >= 2 alarms."""
+    K, N = inst["A"].shape
+    P = placements(K, m)
+    dmasks = np.array([sum(1 << int(i) for i in pl) for pl in P], dtype=np.int64)
+    cov = lambda A: np.array([sum(1 << i for i in range(K) if A[i, j]) for j in range(N)], dtype=np.int64)
+    W = compositions(n, N)
+    U = full_matrix2(dmasks, W, cov(inst["A"]), cov(inst["A2"]), inst["v"].astype(float), int(inst["c"]), float(inst["p"]))
+    return P, W, U

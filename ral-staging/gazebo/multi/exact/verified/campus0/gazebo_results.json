@@ -1,0 +1,113 @@
+[
+ {
+  "pair": 0,
+  "rep": 0,
+  "legs": [
+   {
+    "robot": 0,
+    "dock": 1,
+    "zone": 0,
+    "status": "succeeded",
+    "arrival": 13.548000000000002,
+    "model_time": 12.209138999323175,
+    "deadline": 25.432015382690345,
+    "on_time": true
+   },
+   {
+    "robot": 1,
+    "dock": 3,
+    "zone": 0,
+    "status": "succeeded",
+    "arrival": 12.724,
+    "model_time": 10.209138999323175,
+    "deadline": 25.432015382690345,
+    "on_time": true
+   },
+   {
+    "robot": 2,
+    "dock": 6,
+    "zone": 0,
+    "status": "succeeded",
+    "arrival": 20.2,
+    "model_time": 19.522847498307943,
+    "deadline": 25.432015382690345,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 1.0834816930160196,
+  "concurrent": true,
+  "overlap_s": 13.548000000000002,
+  "wall_s": 43.64496040344238
+ },
+ {
+  "pair": 1,
+  "rep": 0,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 2,
+  "rep": 0,
+  "legs": [
+   {
+    "robot": 2,
+    "dock": 8,
+    "zone": 11,
+    "status": "succeeded",
+    "arrival": 19.024,
+    "model_time": 16.094757082487302,
+    "deadline": 25.432015382690345,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 16.278820596099678,
+  "concurrent": false,
+  "overlap_s": 0.0,
+  "wall_s": 39.48678398132324
+ },
+ {
+  "pair": 3,
+  "rep": 0,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 4,
+  "rep": 0,
+  "legs": [
+   {
+    "robot": 0,
+    "dock": 8,
+    "zone": 11,
+    "status": "succeeded",
+    "arrival": 19.860000000000007,
+    "model_time": 16.094757082487302,
+    "deadline": 25.432015382690345,
+    "on_time": true
+   },
+   {
+    "robot": 2,
+    "dock": 10,
+    "zone": 9,
+    "status": "succeeded",
+    "arrival": 17.023999999999994,
+    "model_time": 16.6470418323181,
+    "deadline": 25.432015382690345,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 53.987968359135266,
+  "concurrent": true,
+  "overlap_s": 17.023999999999994,
+  "wall_s": 42.807045221328735
+ },
+ {
+  "pair": 5,
+  "rep": 0,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ }
+]

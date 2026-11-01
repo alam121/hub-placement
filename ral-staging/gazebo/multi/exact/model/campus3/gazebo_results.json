@@ -1,0 +1,116 @@
+[
+ {
+  "pair": 0,
+  "rep": 0,
+  "legs": [
+   {
+    "robot": 1,
+    "dock": 7,
+    "zone": 5,
+    "status": "succeeded",
+    "arrival": 13.46,
+    "model_time": 13.218951416497461,
+    "deadline": 23.510120241040603,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 11.595864059641137,
+  "concurrent": false,
+  "overlap_s": 0.0,
+  "wall_s": 29.011561632156372
+ },
+ {
+  "pair": 1,
+  "rep": 0,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 2,
+  "rep": 0,
+  "legs": [
+   {
+    "robot": 1,
+    "dock": 7,
+    "zone": 5,
+    "status": "succeeded",
+    "arrival": 13.431999999999999,
+    "model_time": 13.218951416497461,
+    "deadline": 23.510120241040603,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 18.973665961010298,
+  "concurrent": false,
+  "overlap_s": 0.0,
+  "wall_s": 28.397035837173462
+ },
+ {
+  "pair": 3,
+  "rep": 0,
+  "legs": [
+   {
+    "robot": 1,
+    "dock": 7,
+    "zone": 10,
+    "status": "succeeded",
+    "arrival": 18.259999999999998,
+    "model_time": 17.98037516565143,
+    "deadline": 23.510120241040603,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 18.973665961010298,
+  "concurrent": false,
+  "overlap_s": 0.0,
+  "wall_s": 39.0098340511322
+ },
+ {
+  "pair": 4,
+  "rep": 0,
+  "legs": [
+   {
+    "robot": 0,
+    "dock": 4,
+    "zone": 9,
+    "status": "succeeded",
+    "arrival": 18.459999999999994,
+    "model_time": 14.990187582825714,
+    "deadline": 23.510120241040603,
+    "on_time": true
+   },
+   {
+    "robot": 1,
+    "dock": 9,
+    "zone": 9,
+    "status": "succeeded",
+    "arrival": 15.295999999999992,
+    "model_time": 12.647041832318097,
+    "deadline": 23.510120241040603,
+    "on_time": true
+   },
+   {
+    "robot": 2,
+    "dock": 10,
+    "zone": 9,
+    "status": "succeeded",
+    "arrival": 10.679999999999993,
+    "model_time": 9.885618083164127,
+    "deadline": 23.510120241040603,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 0.6477421642395982,
+  "concurrent": true,
+  "overlap_s": 15.295999999999992,
+  "wall_s": 39.59038996696472
+ },
+ {
+  "pair": 5,
+  "rep": 0,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ }
+]

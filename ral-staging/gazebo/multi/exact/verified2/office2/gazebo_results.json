@@ -1,0 +1,117 @@
+[
+ {
+  "pair": 0,
+  "rep": 0,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 1,
+  "rep": 0,
+  "legs": [
+   {
+    "robot": 2,
+    "dock": 8,
+    "zone": 8,
+    "status": "succeeded",
+    "arrival": 17.276,
+    "model_time": 15.704232790736034,
+    "deadline": 23.79018758282571,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 59.228371579843454,
+  "concurrent": false,
+  "overlap_s": 0.0,
+  "wall_s": 44.929620027542114
+ },
+ {
+  "pair": 2,
+  "rep": 0,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 3,
+  "rep": 0,
+  "legs": [
+   {
+    "robot": 1,
+    "dock": 5,
+    "zone": 8,
+    "status": "succeeded",
+    "arrival": 7.448,
+    "model_time": 5.656854249492381,
+    "deadline": 23.79018758282571,
+    "on_time": true
+   },
+   {
+    "robot": 2,
+    "dock": 7,
+    "zone": 8,
+    "status": "succeeded",
+    "arrival": 15.808,
+    "model_time": 13.428090415820636,
+    "deadline": 23.79018758282571,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 1.4584065761334575,
+  "concurrent": true,
+  "overlap_s": 7.448,
+  "wall_s": 38.802995681762695
+ },
+ {
+  "pair": 4,
+  "rep": 0,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 5,
+  "rep": 0,
+  "legs": [
+   {
+    "robot": 1,
+    "dock": 5,
+    "zone": 8,
+    "status": "succeeded",
+    "arrival": 7.503999999999998,
+    "model_time": 5.656854249492381,
+    "deadline": 23.79018758282571,
+    "on_time": true
+   },
+   {
+    "robot": 2,
+    "dock": 7,
+    "zone": 8,
+    "status": "succeeded",
+    "arrival": 15.711999999999996,
+    "model_time": 13.428090415820636,
+    "deadline": 23.79018758282571,
+    "on_time": true
+   }
+  ],
+  "min_pair_dist": 1.4583638178207443,
+  "concurrent": true,
+  "overlap_s": 7.503999999999998,
+  "wall_s": 39.576300859451294
+ },
+ {
+  "pair": 6,
+  "rep": 0,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ },
+ {
+  "pair": 7,
+  "rep": 0,
+  "legs": [],
+  "min_pair_dist": null,
+  "concurrent": false
+ }
+]
