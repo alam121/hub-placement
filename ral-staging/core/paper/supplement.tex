@@ -6,9 +6,11 @@
 \newcommand{\D}{\mathcal{D}}
 \newcommand{\W}{\mathcal{W}}
 \begin{document}
+\sloppy
 \title{Supplementary Material: When Should Robots Hide Where They Wait?\\ Leakage-Aware Randomized Staging for Capacity-Constrained Multi-Robot Response}
 \author{Syed Muhammad Alam and Hamza Rafique}
 \maketitle
+\thispagestyle{empty}\pagestyle{empty}  % no running header/page number (margin check; IEEE adds them)
 
 \section*{S0. Reproducibility protocol}
 \textbf{Hardware and software.} One core of an Intel Xeon (2.1\,GHz) cloud machine; Python 3.13, NumPy 2.5, SciPy 1.18 (HiGHS), numba 0.68, networkx 3.x; Gazebo Harmonic 8.10, ROS~2 Jazzy, Nav2 (RoboStack conda-forge builds); Mesa llvmpipe for headless rendering. All solver timings are single-threaded wall-clock, excluding Python start-up and one-time numba compilation.
