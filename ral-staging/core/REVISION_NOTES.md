@@ -112,3 +112,21 @@
 - **Real-map wording.** The Willow study is described as a simulation on the map of a real building, with no physical robots (abstract and Sec. VI).
 - **Assumptions justified.** Sec. III now motivates all-or-nothing restoration (joint containment or inspection) and independent success (individual navigation and manipulation errors), and points to common-cause failures as out of scope and to the partial-credit analysis.
 - **Space.** The validation, Gazebo setup, relocation and closed-loop setup paragraphs were condensed. The paper is 8 pages; the abstract is 249 words.
+
+# Fourth pass (presentation and methodological evidence)
+
+1. **New Fig. 1 (page 2): same marginals, different worst case.** A schematic of Lemma 2: under both policies every dock is open with probability 1/2, yet the worst cases are 4.95 and 1.00. Referenced from the contributions list. `figures_rev3.py`.
+2. **Solver ablation (new Table II, Sec. V; `ablation.py`, `ablation.json`).** Identical instances (K=12, m=3, n=6, c=1; three maps; N = 12-50), computing P and V*(0) by:
+   - full matrix: out of memory beyond 25 zones;
+   - enumerated-separation CG: 0.38 s at 12 zones, 297 s at 40, over 600 s at 50;
+   - our branch-and-bound CG: 0.08-0.15 s throughout, about ten best-response calls; about 2700x faster than enumerated CG at 40 zones.
+   - All methods agree to 4e-15 wherever more than one finished.
+   - Threshold: one linear-fractional LP takes 8-56 ms, against 0.27-0.40 s for 10-step bisection. Bisection only brackets q* to 1e-3 and cannot certify the q* = 1 tie case.
+   - Sec. V also explains why separation is hard here (no per-target decomposition) and why the bound is admissible.
+3. **Per-layout Nav2 figure (new Fig. 2; planned vs realized, model vs slack-verified, rings for converging robots).** The engineering lesson is stated: optimizing on an inaccurate reachability graph can erase the benefit, and correcting the graph recovers most of it.
+4. **Deployment procedure and uncertain leakage (Discussion; `interval_q.py`, `interval_q.json`).**
+   - The procedure: verified reachability, compute P, the mixture and q*, then compare with a conservative estimate of q.
+   - For q in an interval, V_x(q) is linear and non-increasing, so the max-min policy is x*(q_hi). Regret is convex, so the minimax-regret policy is one LP with two endpoint constraints.
+   - On 15 layouts with q in [0.2, 0.5], planning for q_hi guarantees 4.2 +- 1.8% over fixed staging across the whole interval with at most 0.8% regret (minimax regret 0.5%). Planning for q = 0 guarantees only 2.8% and falls below fixed staging in 5 layouts.
+5. **Conclusion rewritten** around the general finding that randomization's value depends jointly on configurations, observability and physical reachability.
+6. **Space.** The q-curve and map figures moved to Supp. Figs. S3-S4, and the duplicated sensitivity table to Supp. Table S5. The implementation details moved to Supp. S0. The paper is 8 pages; the abstract is 249 words.
