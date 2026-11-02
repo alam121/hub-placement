@@ -13,8 +13,6 @@
 \section*{S0. Reproducibility protocol}
 \textbf{Hardware and software.} One core of an Intel Xeon (2.1\,GHz) cloud machine; Python 3.13, NumPy 2.5, SciPy 1.18 (HiGHS), numba 0.68, networkx 3.x; Gazebo Harmonic 8.10, ROS~2 Jazzy, Nav2 (RoboStack conda-forge builds); Mesa llvmpipe for headless rendering. All solver timings are single-threaded wall-clock, excluding Python start-up and one-time numba compilation.
 
-\textbf{Software.} Python 3.13, NumPy 2.5, SciPy 1.18 (HiGHS LP/MILP), numba 0.68; one core of an Intel Xeon (2.1\,GHz) cloud machine. Gazebo Harmonic 8.10, ROS~2 Jazzy, Nav2.
-
 \textbf{Tolerances.} Constraint generation adds attacks while a violation exceeds $10^{-9}$ (relative); defender-side certificates and the $q^\star$ tie test use $10^{-7}$ (relative); $\D^\star=\{d:\mu_d\ge P-10^{-9}\}$; Charnes--Cooper scale cap $\lambda\le10^8$ (never active; largest non-tie $q^\star=0.993$); bisection on $V^\star(q)$ to $10^{-3}$ in the sensitivity study.
 
 \textbf{Randomization and units.} Instance generators use NumPy PCG64 with seeds fixed in the scripts (grid: \texttt{instances.py}; maps: \texttt{sim.scenario}). In the closed-loop simulation every policy evaluated for a given (layout, $q$) uses the same seed (CRC32 of map, layout, regime and $q$) and the same per-shift uniforms (configuration draw by inverse CDF, attack time, surveillance) and per-robot-slot speed and success draws, so comparisons are paired. Shifts are nested in layouts; the layout (or map, in the grid) is the independent unit, and intervals are 95\% $t$-intervals over those units.

@@ -6,6 +6,8 @@ from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 sys.path.insert(0, "/home/claude/gz/video")
 from proj import project
 
+ANON = os.environ.get("ANON") == "1"   # double-anonymous review version
+ANON_URL = "anonymous.4open.science/r/leakage-aware-staging-ral"
 V = "/home/claude/gz/video"; OUTD = "/home/claude/gz/video2/scenes"; os.makedirs(OUTD, exist_ok=True)
 W, H, FPS = 1280, 720, 30
 F = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"; FB = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
@@ -80,7 +82,7 @@ def scenes():
     im = Image.new("RGB", (W, H), BG); d = ImageDraw.Draw(im)
     d.text((80, 200), "When Should Robots Hide Where They Wait?", font=font(46, True), fill=INK)
     d.text((80, 270), "Leakage-Aware Randomized Staging for Capacity-Constrained Multi-Robot Response", font=font(26), fill=INK2)
-    d.text((80, 360), "Syed Muhammad Alam (KAUST)   Hamza Rafique (LUMS)", font=font(24), fill=INK)
+    d.text((80, 360), "Anonymous authors (double-anonymous review)" if ANON else "Syed Muhammad Alam (KAUST)   Hamza Rafique (LUMS)", font=font(24), fill=INK)
     d.text((80, 400), "Supplementary video, IEEE Robotics and Automation Letters submission", font=font(20), fill=INK2)
     out.append(("01_title", "still", (im, 4.0)))
 
@@ -120,6 +122,10 @@ def scenes():
             yield im
     out.append(("04_shiftB", "anim", shiftB))
 
+    out.append(("04b_lemma", "still", (slide("Why the joint configuration matters", [
+        "Both policies open every dock with probability 1/2, yet their worst cases",
+        "differ fourfold: per-dock coverage cannot describe the decision."],
+        "/home/claude/ral/fig_lemma2.png", (0, 200, 1280, 500)), 8.0)))
     out.append(("05_policy", "still", (slide("What one shift does not show", [
         "Representative warehouse layout (gain near the mean of 15 layouts):",
         f"best fixed staging guarantees {meta['P']:.2f};",
@@ -139,9 +145,9 @@ def scenes():
         "It also shrinks with dense reachability, uniform priorities, larger fleets (to 3-4%)."],
         "/home/claude/gz/video2/chart_response.png", (60, 196, 1160, 500)), 9.0)))
     out.append(("09_gazebo_multi", "still", (slide("Concurrent Nav2 robots: verify reachability first", [
-        "Three robots, one Nav2 stack each. Arrivals 0.95 s later than the model on average.",
-        "One route Nav2 could not complete erased the office gain; Nav2-verified routes restore it."],
-        "/home/claude/gz/video2/chart_gazebo.png", (60, 196, 1160, 500)), 10.0)))
+        "Every dispatch on 15 layouts, three Nav2 stacks, robots perceive each other.",
+        "Unverified graph: 3.3% realized vs 7.5% planned. Slack-verified (3 runs): exact in 12/15 layouts."],
+        "/home/claude/ral/fig_nav2_layouts.png", (0, 192, 1280, 520)), 11.0)))
     out.append(("10_nav2", "still", (slide("Travel times validated with Nav2", [
         "92 measured legs: Nav2 time = 0.997 x model + 1.0 s (R^2 = 0.995)."],
         "/home/claude/gz/fig_gazebo.png", (60, 170, 1160, 520)), 6.5)))
@@ -149,7 +155,8 @@ def scenes():
     y = 170
     for l in ["Randomize robot staging only when", "  - zones need all their alarms served, by reliable robots,",
               "  - reachability is sparse and capacity tight,", "  - the chance the staging leaks is below q*, and",
-              "  - reachability has been verified with the navigation stack.", "", "Code and data: github.com/alam121/hub-placement"]:
+              "  - reachability has been verified with the navigation stack.", "",
+              "Code and data: " + (ANON_URL if ANON else "github.com/alam121/hub-placement")]:
         d.text((80, y), l, font=font(30, l.startswith("Randomize")), fill=INK); y += 46
     out.append(("11_close", "still", (im, 7.0)))
     return out
@@ -187,5 +194,5 @@ if __name__ == "__main__":
             for name, _, _ in S: f.write(f"file '{OUTD}/{name}.mp4'\n")
         tmp = "/home/claude/RAL_video.tmp.mp4"
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", f"{OUTD}/list.txt", "-c", "copy", tmp], check=True)
-        os.replace(tmp, "/home/claude/RAL_video_leakage_aware_staging.mp4")
+        os.replace(tmp, "/home/claude/RAL_video_leakage_aware_staging" + ("_anonymous" if ANON else "") + ".mp4")
         print("done")

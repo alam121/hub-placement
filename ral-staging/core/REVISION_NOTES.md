@@ -130,3 +130,16 @@
    - On 15 layouts with q in [0.2, 0.5], planning for q_hi guarantees 4.2 +- 1.8% over fixed staging across the whole interval with at most 0.8% regret (minimax regret 0.5%). Planning for q = 0 guarantees only 2.8% and falls below fixed staging in 5 layouts.
 5. **Conclusion rewritten** around the general finding that randomization's value depends jointly on configurations, observability and physical reachability.
 6. **Space.** The q-curve and map figures moved to Supp. Figs. S3-S4, and the duplicated sensitivity table to Supp. Table S5. The implementation details moved to Supp. S0. The paper is 8 pages; the abstract is 249 words.
+
+# Fifth pass (submission readiness)
+
+- **Duplicate removed.** Supplement S0 had two hardware/software paragraphs; one remains.
+- **Double-anonymous review.** RA-L uses double-anonymous review (RAS rules, effective 2025). The review versions are generated from the named sources by `paper/make_anon.py`:
+  - `main_anon.pdf` (8 pages) and `supplement_anon.pdf` (15 pages): no authors, affiliations or running-head names; the code citation points to anonymous.4open.science/r/leakage-aware-staging-ral; PDF metadata cleared.
+  - The script scans text, raw PDF bytes and metadata for identifying strings; the result is none.
+  - Video: `RAL_video_leakage_aware_staging_anonymous.mp4` uses an anonymous title card and the anonymized code link. The named version is kept for after acceptance.
+  - Code: `leakage-aware-staging-ral_anonymous_code.zip` has no git history, no named paper sources, no revision notes and no videos; names and GitHub links are scrubbed. Scan result: zero files with identifiers.
+- **Speedup caveat.** Sec. V states that the ~2700x figure is empirical for these instances (sparse, skewed), not a complexity guarantee: separation stays exponential in the worst case, and uniform priorities raise effort. The contributions list says "on our 40-zone instances".
+- **Map vs. robots.** The contributions list now says "on the map of a real building (simulation only)", and the limitations say "all robot experiments are simulated".
+- **Fig. 4 caption** gives both results: 4.1 +- 2.1% vs 5.4 +- 2.7% planned on the 14 layouts where the fixed baseline succeeds, and 5.7 +- 3.9% on all 15 (raised by warehouse 4).
+- **Video.** It now has a Lemma 2 slide and the new concurrent-Nav2 slide (per-layout figure, 15 layouts, three runs), replacing the outdated two-layout results.
