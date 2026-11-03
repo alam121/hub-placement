@@ -1,0 +1,14 @@
+Summary of multimedia material
+
+The video (100 s) shows (1) the staging problem: robots wait at docks and an
+adversary places a burst of alarms; (2) a Gazebo shift with fixed staging
+that the adversary has observed versus a shift with leakage-aware
+randomized staging; (3) why per-dock probabilities do not determine the
+value (Lemma 2 example); (4) when randomization pays as the observation
+probability q grows, closed-loop simulation results and the limits of the
+model; and (5) concurrent three-robot Nav2 execution in Gazebo, showing that
+planning on navigation-verified reachability realizes the planned value.
+
+The code archive contains the exact solvers, the simulator, the Gazebo/Nav2
+setup and all raw results needed to reproduce every number and figure in
+the paper.
