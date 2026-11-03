@@ -1,0 +1,279 @@
+\documentclass[letterpaper,journal]{IEEEtran}
+\IEEEoverridecommandlockouts
+\let\proof\relax\let\endproof\relax
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx,booktabs,xcolor}
+\usepackage{dblfloatfix}
+\renewcommand{\topfraction}{0.9}\renewcommand{\dbltopfraction}{0.9}\renewcommand{\textfraction}{0.07}\renewcommand{\floatpagefraction}{0.8}\renewcommand{\dblfloatpagefraction}{0.8}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\W}{\mathcal{W}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\title{When Should Robots Hide Where They Wait?\\ Leakage-Aware Randomized Staging for\\ Capacity-Constrained Multi-Robot Response}
+\author{Syed Muhammad Alam and Hamza Rafique%
+\thanks{S. M. Alam is with the Robotics, Intelligent Systems and Control (RISC) Lab, King Abdullah University of Science and Technology (KAUST), Thuwal, Saudi Arabia (e-mail: syed.alam@kaust.edu.sa). H. Rafique is with the Center for Water Informatics \& Technology (WIT) and the Department of Electrical Engineering, Lahore University of Management Sciences (LUMS), Lahore 54792, Pakistan (e-mail: hamza.rafique@lums.edu.pk).}}
+\markboth{IEEE Robotics and Automation Letters. Preprint Version. Submitted 2026}{Alam and Rafique: Leakage-Aware Randomized Robot Staging}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}\pagestyle{empty}  % no running header/page number (margin check; IEEE adds them)
+
+\begin{abstract}
+Security or inspection robots wait at staging docks and must answer a burst of alarms placed by an adversary. Randomizing where they wait helps only if the adversary cannot see the realized staging. We model this as a zero-sum game: the planner commits to a distribution over dock configurations, the adversary observes the realized configuration with probability $q$, and the planner answers with a capacity-limited, all-or-nothing assignment over path-time reachability. We show that per-site marginals do not determine the value, so marginal-coverage security-game formulations do not apply; that the value is convex in $q$ with a threshold $q^\star$ beyond which randomization loses its strict worst-case advantage; that $q^\star$ is computable by one linear-fractional program; and that randomizing among equally robust configurations is free. In 540 exact games the benefit concentrates where reachability is sparse and capacity tight (cell means up to 14.9\%) and shrinks with more docks. In closed-loop simulation, optimized randomization beats the best fixed staging by 8.1\%, 5.8\% and 2.6\% at $q=0,0.25,0.5$, whereas uniform randomization loses 12--18\%. Exact gains replicate on a real building's map in simulation, and sensitivity analyses show they are specific to all-or-nothing restoration with reliable robots. In concurrent three-robot Gazebo/Nav2 execution of every dispatch on 15 layouts, planning on reachability verified with a pre-set timing margin realizes exactly the planned value in 12 of 15 layouts, while unverified reachability delivers under half of it; robots converging on one zone are the main unmodelled effect. An exact matrix-free solver handles $3.3\times10^{11}$ attacks in seconds.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Multi-Robot Systems; Planning, Scheduling and Coordination; Surveillance Robotic Systems; Planning under Uncertainty.
+\end{IEEEkeywords}
+
+\section{Introduction}
+Mobile robots are increasingly deployed to patrol, inspect and respond inside warehouses, plants and campuses. Between incidents they wait at staging docks, and when alarms fire they are dispatched to the affected zones. Where they wait determines what they can reach in time. If the alarms are caused by a strategic adversary---an intruder triggering sensors to overload the fleet, or a saboteur disabling several subsystems at once---the adversary will load the zones the fleet is least able to serve. A fixed staging plan is then a liability: once observed, it tells the adversary exactly where the gaps are.
+
+Randomizing the staging configuration from shift to shift is the obvious remedy, and randomized defence is the core idea of security games~\cite{tambe2011,korzhyk2011}. Two features of robot response, however, are not captured by standard security-game models. First, a zone is restored only if \emph{all} of its alarms are served, and the robots at a dock are shared among zones, so the planner's payoff depends on which docks are open \emph{together}, not on how often each is open. Second, robots must physically relocate between shifts and staging is often partly visible: randomization is only as valuable as it is concealed. A planner therefore needs to know not just how to randomize, but whether randomizing is worth it given how much of the staging leaks.
+
+This paper answers both questions for a capacity-constrained multi-robot response game. Our contributions are:
+\begin{enumerate}
+\item A \textbf{leakage-aware staging game}: the planner commits to a distribution over dock configurations; the adversary sees the realized configuration with probability $q$; the planner responds with an optimal capacity-limited, all-or-nothing assignment over path-time reachability (Sec.~\ref{sec:model}).
+\item \textbf{Structural results}: per-site marginals are insufficient (Lemma~\ref{lem:marg}, Fig.~\ref{fig:lemma}); the optimal value is convex in $q$ with a threshold $q^\star$ beyond which the strict advantage of randomization disappears (Prop.~\ref{prop:convex}, Remark~\ref{rem:scope}); $q^\star$ is computable by a single linear-fractional program (Prop.~\ref{prop:qstar}), with a closed-form certified lower bound; and randomizing among co-optimal fixed configurations is free (Cor.~\ref{cor:ties}) (Sec.~\ref{sec:theory}).
+\item An \textbf{exact solution method}---a Gale-condition terminal evaluator inside constraint generation with a joint-recourse branch-and-bound separation, validated against max-flow and an MILP and about 2700 times faster than enumerated separation on our 40-zone instances (Sec.~\ref{sec:alg}).
+\item \textbf{Evidence on when randomization pays}: a pre-specified study of 540 exact games, a closed-loop simulation on three synthetic map types and on the map of a real building (simulation only), concurrent three-robot Gazebo/Nav2 execution of every dispatch on 15 layouts with robots perceiving each other, and sensitivity analyses of relocation exposure, the response model and scenario factors (Sec.~\ref{sec:exp}).
+\end{enumerate}
+The practical message is a deployment rule, valid for the all-or-nothing restoration model studied here: randomize staging only where reachability is sparse and capacity tight, and only if the probability that the adversary observes the realized staging is below $q^\star$; plan on reachability verified with the deployed navigation stack and a timing margin; never randomize uniformly. Sensitivity analyses (Sec.~\ref{sec:sens}) show that the benefit shrinks sharply under partial-credit restoration and low robot reliability, so the rule should not be transferred to those settings without re-solving.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_lemma2.pdf}
+\caption{Same marginals, different worst case (Lemma~\ref{lem:marg}). A ($v=10$) is reachable from docks 1--2, B ($v=1$) from 3--4; $m=2$, $c=1$, $n=2$, $p=0.9$; filled docks are open. Both policies open every dock with probability $\tfrac12$, yet under $x$ half the configurations open both docks that reach A, so A can absorb two alarms, whereas under $x'$ every configuration opens exactly one such dock, so two alarms at A defeat it every time.}
+\label{fig:lemma}
+\end{figure}
+
+\section{Related Work}
+\textbf{Robotic patrolling and surveillance.} Adversarial multi-robot patrolling randomizes \emph{routes} so that an intruder cannot predict coverage~\cite{agmon2008,basilico2012}; Basilico et al.\ formulate patrolling security games and solve large instances. These models evaluate whether a target is visited in time, not whether a capacity-limited fleet can jointly answer a multi-alarm burst after it occurs.
+
+\textbf{Security games and information leakage.} Stackelberg security games compute randomized allocations of protective resources~\cite{tambe2011,kiekintveld2009}; in zero-sum games the commitment and Nash values coincide~\cite{korzhyk2011}. Double-oracle methods solve games with very large strategy spaces~\cite{mcmahan2003,jain2011}. Closest to our leakage model, Xu et al.~\cite{xu2015leak} study security games in which the attacker learns part of the realized defender deployment, and \cite{xu2015asym} studies information asymmetry in two-stage security games. Their efficient formulations rely on per-target marginal coverage. Our planner's payoff is not a function of per-site marginals (Lemma~\ref{lem:marg}), because the second-stage response is a combinatorial, capacity-coupled assignment; we therefore work in configuration space with exact separation.
+
+\textbf{Robust placement and randomized decisions.} Our base three-stage place--attack--assign structure is adapted from air-defence battery siting~\cite{han2016,boardman2017} and relates to defender--attacker--defender models~\cite{brown2006}. That randomized first-stage decisions can beat deterministic ones in robust problems with discrete decisions is known~\cite{delage2019}; we quantify when this holds for robot staging and how it degrades under leakage. Classical covering models (maximal covering~\cite{church1974}, MEXCLP~\cite{daskin1983}) serve as fixed-placement baselines. Multi-robot task allocation~\cite{gerkey2004} provides the terminal assignment view.
+
+\textbf{What is and is not new.} Table~\ref{tab:prior} places the closest models side by side. Each ingredient exists separately; no prior model combines a randomized first stage, partial observation of the realization, and a second-stage response that is coupled across targets. This combination changes the problem class, not just its application. Leakage-aware security games~\cite{xu2015leak} remain tractable because the payoff depends on per-target marginals, but here it does not (Lemma~\ref{lem:marg}). Implementing the optimal marginals by comb sampling, the standard way to turn marginal coverage into deployments, loses more than 0.1\% of the value in 152 of our 321 grid games with a concealment gain (up to 14.7\%) and is no better than fixed staging in 63 of them. Defender--attacker--defender models~\cite{brown2006,han2016} handle coupled recourse but assume the deployment is fully observed ($q=1$), which by Prop.~\ref{prop:convex} is exactly the case where randomization has no strict advantage. The results this combination yields are a threshold $q^\star$ that is computable exactly by one LP, with a certified bound and a characterization of ties (Prop.~\ref{prop:qstar}, Cors.~\ref{cor:lb}--\ref{cor:ties}); a joint-recourse separation oracle that makes the configuration-space LP exact at facility scale (Sec.~\ref{sec:alg}); and evidence, including negative results, on when the benefit survives in navigated robot deployments (Sec.~\ref{sec:exp}).
+
+\begin{table}[t]\centering\caption{Closest prior models. Rand.: randomized first stage. Leak.: adversary observes the realization with probability $q\in(0,1)$. Coupled: second-stage response couples targets (shared capacity, all-or-nothing). Marg.: value determined by per-target marginals ($^\dagger$Lemma~\ref{lem:marg}).}\label{tab:prior}\scriptsize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lccccc@{}}\toprule
+Model & Rand. & Leak. & Coupled & Marg. & exact $q^\star$\\\midrule
+Patrolling games~\cite{agmon2008,basilico2012} & \checkmark & -- & -- & -- & -- \\
+Security games~\cite{kiekintveld2009,korzhyk2011} & \checkmark & -- & -- & \checkmark & -- \\
+Leakage security games~\cite{xu2015leak} & \checkmark & \checkmark & -- & \checkmark & -- \\
+DAD, robust siting~\cite{brown2006,han2016} & -- & $q{=}1$ & \checkmark & -- & -- \\
+Randomized robust~\cite{delage2019} & \checkmark & -- & \checkmark & -- & -- \\
+This work & \checkmark & \checkmark & \checkmark & --$^\dagger$ & \checkmark \\\bottomrule
+\end{tabular}\end{table}
+
+\section{Problem Formulation}\label{sec:model}
+\textbf{Environment.} A facility map contains $K$ candidate staging sites $I$ and $N$ zones $J$ with priorities $v_j>0$. A robot needs time $\tau_{ij}=\ell_{ij}/s+\sigma$ to reach zone $j$ from site $i$ and service one alarm, where $\ell_{ij}$ is the obstacle-aware shortest-path length, $s$ the nominal speed and $\sigma$ the service time. Site $i$ \emph{reaches} zone $j$ ($a_{ij}=1$) if $\tau_{ij}\le T$ for response deadline $T$.
+
+\textbf{Staging.} The planner opens $m$ docks, each holding $c$ robots. A configuration is $d\in\D=\{d\subseteq I:|d|=m\}$; a staging policy is a distribution $x\in\Delta(\D)$, re-sampled every shift.
+
+\textbf{Attack.} The adversary distributes $n$ alarms over zones, $w\in\W=\{w\in\mathbb{Z}^N_{\ge0}:\sum_j w_j=n\}$, choosing $w$ to minimize the planner's value. It knows the policy $x$, and with probability $q$ it also observes the realized configuration $d$ before choosing $w$.
+
+\textbf{Response.} Given $(d,w)$ the planner dispatches each robot to at most one alarm. Each dispatched robot succeeds independently with probability $p$, and zone $j$ is restored only if all $w_j$ alarms succeed. Unloaded zones keep their value. All-or-nothing restoration models incidents that need joint action: an intrusion is contained only when every triggered entry point is covered, and a fault is cleared only when every affected subsystem is inspected. A zone with an unanswered alarm stays compromised. Independent success models individual navigation or manipulation errors; common-cause failures are outside the model (Sec.~VII), and partial credit is analysed in Sec.~\ref{sec:sens}. The terminal value is
+\begin{equation}\label{eq:U}
+U(d,w)=\sum_{j:w_j=0}v_j+\max_{S\in\mathcal{F}(d,w)}\sum_{j\in S}v_j\,p^{w_j},
+\end{equation}
+where $\mathcal{F}(d,w)$ is the family of loaded-zone sets $S$ for which robots at open docks can be routed to deliver exactly $w_j$ robots to every $j\in S$, respecting reachability and dock capacity $c$.
+
+\textbf{Leakage-aware value.} Let $\mu_d=\min_{w}U(d,w)$ be the worst case of configuration $d$ and $P=\max_d \mu_d$ the best fixed (pure maximin) value. For policy $x$,
+\begin{equation}\label{eq:Vx}
+V_x(q)=(1-q)\underbrace{\min_{w}\sum_{d}x_dU(d,w)}_{z(x)}+q\underbrace{\sum_d x_d\mu_d}_{b(x)},
+\end{equation}
+and the planner solves $V^\star(q)=\max_{x\in\Delta(\D)}V_x(q)$. The \emph{concealment gain} is $G(q)=(V^\star(q)-P)/P$.
+
+\section{Structural Results}\label{sec:theory}
+\begin{lemma}[Terminal feasibility]\label{lem:gale}
+$S\in\mathcal{F}(d,w)$ if and only if for every $T\subseteq S$, $\sum_{j\in T}w_j\le c\,|\{i\in d:\exists j\in T,\,a_{ij}=1\}|$.
+\end{lemma}
+\begin{proof}
+Feasibility is a flow from a source through docks (capacity $c$) and uncapacitated dock--zone arcs to zones (demand $w_j$). With uncapacitated middle arcs, every finite cut is determined by a set $T$ of zones on the sink side together with their reachable docks, so max-flow/min-cut gives Gale's supply--demand condition~\cite{gale1957}.
+\end{proof}
+Since at most $n$ zones are loaded, Lemma~\ref{lem:gale} evaluates \eqref{eq:U} with $O(2^{L}L)$ operations for $L\le n$ loaded zones via a subset-AND transform, replacing one max-flow per candidate subset.
+
+\begin{lemma}[Marginals are insufficient]\label{lem:marg}
+There exist policies $x,x'$ with identical per-site opening probabilities but different values $V_x(0)\neq V_{x'}(0)$.
+\end{lemma}
+\begin{proof}
+Let $I=\{1,2,3,4\}$, $m=2$, $c=1$, $n=2$, $p=0.9$, and two zones with strictly positive priorities: $A$ ($v_A=10$) reachable only from sites $1,2$ and $B$ ($v_B=1$) reachable only from sites $3,4$. Let $x$ open $\{1,2\}$ or $\{3,4\}$ and $x'$ open $\{1,3\}$ or $\{2,4\}$, each with probability $\tfrac12$; every site opens with probability $\tfrac12$ under both. There are three attacks. Against $x$, the expected values are $w=(2,0)$: $\tfrac12(1+10p^2)+\tfrac12\cdot1=5.05$; $w=(1,1)$: $\tfrac12\cdot10p+\tfrac12p=4.95$; $w=(0,2)$: $\tfrac12\cdot10+\tfrac12(10+p^2)=10.405$; so $z(x)=4.95$. Against $x'$, $A$ can never receive two robots, so $w=(2,0)$ yields $1$ and $z(x')=1$. Hence $V_x(0)=4.95\neq V_{x'}(0)=1$ (verified with the evaluator of Lemma~\ref{lem:gale}).
+\end{proof}
+Fig.~\ref{fig:lemma} illustrates the example. Hence the joint distribution over configurations, not marginal coverage, is the decision variable. This rules out formulations whose decision variables are per-site marginals, such as the marginal-coverage formulations used for leakage in standard security games~\cite{xu2015leak}. It does not exclude every compact representation; for instance, a formulation over co-opening probabilities of site groups might suffice for some reachability structures, which we do not pursue. The gap is common in practice, not only in the constructed example. Across the 321 games of Sec.~\ref{sec:exp} with a concealment gain, the optimal marginals can also be realized by a strictly worse joint distribution in 231 (72\%; certified by LP over candidate attacks), and in 116 (36\%) that distribution is worse than the best fixed configuration. Realizing the optimal marginals by standard comb (systematic) sampling keeps the full gain in only 166 games and falls below fixed staging in 59.
+
+\begin{proposition}[Convexity and threshold]\label{prop:convex}
+$V^\star(q)$ is convex, piecewise linear and non-increasing on $[0,1]$, with $V^\star(q)\ge P$ and $V^\star(1)=P$. If $G(0)>0$ there is $q^\star\in(0,1]$ such that $V^\star(q)>P$ for $q<q^\star$ and $V^\star(q)=P$ for $q\ge q^\star$; if $G(0)=0$ then $V^\star\equiv P$ and we set $q^\star=0$.
+\end{proposition}
+\begin{proof}
+For fixed $x$, $V_x(q)$ is affine in $q$, and $V^\star$ is the pointwise maximum over $x$, hence convex. Piecewise linearity follows from parametric LP. Since $b(x)\le P$ and $z(x)\ge b(x)$, each $V_x$ has slope $b(x)-z(x)\le0$. Pure configurations give $V^\star(q)\ge P$; at $q=1$, $V_x(1)=b(x)\le P$. The set $\{q:V^\star(q)>P\}$ is therefore an interval containing $0$, and convexity with $V^\star\ge P$ makes it $[0,q^\star)$.
+\end{proof}
+
+\begin{proposition}[Exact threshold by one LP]\label{prop:qstar}
+Let $\D^\star=\argmax_d\mu_d$. If mixing within $\D^\star$ achieves $z(x)>P$, then $q^\star=1$. Otherwise $q^\star=t^\star/(1+t^\star)$, where
+\begin{equation}\label{eq:frac}
+t^\star=\sup_{x\in\Delta(\D),\,b(x)<P}\frac{z(x)-P}{P-b(x)},
+\end{equation}
+which the Charnes--Cooper substitution $y=\lambda x$, $\zeta=\lambda z$~\cite{charnes1962} turns into the LP
+$\max\{\zeta-P\lambda:\ \zeta\le\textstyle\sum_d y_dU(d,w)\ \forall w;\ P\lambda-\sum_d y_d\mu_d=1;\ \sum_dy_d=\lambda;\ y,\lambda\ge0\}$.
+\end{proposition}
+\begin{proof}
+$V_x(q)-P=(1-q)(z(x)-P)-q(P-b(x))$. If $b(x)=P$ then $x$ is supported on $\D^\star$, and the difference is positive for every $q<1$ exactly when $z(x)>P$. Otherwise it is positive if and only if $q/(1-q)<(z(x)-P)/(P-b(x))$. Taking the supremum over $x$ gives $q^\star$. The objective of \eqref{eq:frac} is linear-fractional with a positive denominator, so the substitution is exact.
+\end{proof}
+
+\begin{corollary}[Certified lower bound]\label{cor:lb}
+For the concealed optimum $x^0$ with $z_0=z(x^0)>P$ and $b_0=b(x^0)$, we have $q^\star\ge (z_0-P)/(z_0-b_0)$.
+\end{corollary}
+
+\begin{corollary}[Free randomization among ties]\label{cor:ties}
+If several fixed configurations attain $P$ and some mixture of them has $z>P$, that mixture weakly dominates every fixed configuration for every $q$ and strictly for every $q<1$.
+\end{corollary}
+Corollary~\ref{cor:ties} gives a zero-risk rule: when configurations are equally robust, which is common with uniform priorities and symmetric layouts, rotating among them costs nothing even against an adversary who usually observes.
+
+\begin{remark}[Scope of $q^\star$]\label{rem:scope}
+$q^\star$ marks where the \emph{strict} advantage in worst-case expected value disappears. For $q\ge q^\star$ the best fixed configuration is optimal, but it need not be the only optimal policy, and randomized policies are not thereby worse under other criteria (predictability, other adversary models), which the objective does not capture. Mixtures over co-optimal configurations remain optimal for every $q$ (Cor.~\ref{cor:ties}). The tie test of Prop.~\ref{prop:qstar} runs first; the Charnes--Cooper constraint $P\lambda-\sum_dy_d\mu_d=1$ excludes $b(x)=P$, whose boundary ($\lambda\to\infty$) is guarded by a cap $\lambda\le10^8$ that was never active (tolerances documented with the code~\cite{alam2026code}). Instances with $G(0)=0$ get $q^\star=0$.
+\end{remark}
+
+\begin{remark}[Relocation exposure]\label{rem:reloc}
+All results above treat $q$ as \emph{exogenous}: the optimal policies are optimal for a leakage probability that does not depend on $x$. Physically, robots in transit between docks may reveal the destination configuration. If configurations are re-drawn i.i.d.\ each shift of length $H$, attacks are uniform over the shift and transit is observable, then $q_{\mathrm{eff}}(x)=q+(1-q)\,\mathbb{E}_x[\tau]/H$ with $\mathbb{E}_x[\tau]=\sum_{d,d'}x_dx_{d'}\tau(d,d')$, where $\tau(d,d')$ is the relocation time. The end-to-end value $z(x)-q_{\mathrm{eff}}(x)\,(z(x)-b(x))$ multiplies the quadratic $q_{\mathrm{eff}}(x)$ by the piecewise-linear $z(x)-b(x)$, so it is piecewise cubic and in general not concave in $x$, and the LP of Prop.~\ref{prop:qstar} no longer gives its optimum. Sec.~\ref{sec:sens} evaluates how much this matters. An attacker who can time attacks to relocation should simply be modelled with a larger $q$.
+\end{remark}
+
+\section{Exact Computation}\label{sec:alg}
+$V^\star(q)$ and $t^\star$ are LPs with one constraint per attack $w\in\W$, with $|\W|=\binom{N+n-1}{n}$. We solve them by constraint generation over attacks. A restricted LP over an active attack set yields $(x,z)$. The separation problem $\min_w\sum_dx_dU(d,w)$, an exact attacker best response against $x$, returns the most violated attacks, which are added until none violates by more than $10^{-9}$ (relative). Configurations enter through the LP columns, and $\mu_d$ is one attacker best response per configuration. Separation is an exact depth-first branch-and-bound over demand allocations, with zones visited in decreasing value. At a node that fixes the demand of zones $F$ and leaves $r$ alarms, the admissible \emph{joint-recourse bound} is $\sum_d x_d\big[\sum_{j\in F,w_j=0}v_j+\max_{S\subseteq F_+,\,S\in\mathcal{F}}\sum_{j\in S}v_jp^{w_j}\big]+\sum_{j\notin F}v_j-\mathrm{top}_r\{v_j:j\notin F\}$, where $F_+$ are the loaded fixed zones. It is valid because loading zones outside $F$ cannot invalidate a feasible service of $S$, and at most $r$ further zones can lose their value. All configurations are LP rows, evaluated on every generated attack. For $q>0$ each row needs $\mu_d$; we keep upper bounds $\bar\mu_d$ from the generated attacks and compute exact $\mu_d$ (a pure-configuration best response) only for rows that receive weight or could be a defender best response. Termination therefore certifies the exact value. This separation is where the coupling bites. In marginal-coverage security games the attacker's best response decomposes across targets and reduces to a sort. Here the attacker minimizes a probability-weighted sum, over configurations, of combinatorial recourse values that couple zones through shared docks (Lemma~\ref{lem:marg}), so no per-zone decomposition exists. The bound above is what makes exact separation practical (Table~\ref{tab:abl}): it is admissible for every configuration at once because it only uses the monotonicity of feasibility under extra load. Likewise, $q^\star$ would otherwise require bisection over $q$ with a full constraint-generation solve per step, and bisection gives only an interval. Prop.~\ref{prop:qstar} replaces this with one linear-fractional program and returns the exact breakpoint. For the 12-zone instances below we also build full payoff matrices as an independent check.
+
+\textbf{Validation.} On 810 random $(d,w)$ pairs the evaluator matched an independent max-flow implementation exactly and a MILP (HiGHS) to $3.6\times10^{-15}$. Re-optimized LPs at $q^\star\pm0.01$ confirmed every exact threshold on 26 instances. With full matrices, 495 configurations and 12{,}376 attacks solve in under 5\,s. The matrix-free solver reproduced $P$ and $V^\star(q)$ on 24 grid instances to $3.6\times10^{-15}$, and its best response matched brute-force enumeration of 177{,}100 allocations on 36 random mixtures ($7.1\times10^{-15}$).
+
+\textbf{Ablation.} Table~\ref{tab:abl} solves the same instances ($K=12$, $m=3$, $n=6$, $c=1$; one layout per map type) for $P$ and $V^\star(0)$ three ways: building the full payoff matrix, constraint generation whose separation enumerates all $|\W|$ attacks, and our branch-and-bound separation. All methods agree to $4\times10^{-15}$ wherever more than one finished. Enumeration cost grows linearly with $|\W|$, while the joint-recourse bound prunes so well that branch-and-bound time stays near 0.1\,s with about ten best-response calls; at 40 zones it is about 2700 times faster than enumerated separation. This speedup is empirical, for these instances (sparse reachability, skewed priorities); it is not a complexity guarantee. Separation remains exponential in the worst case, and uniform priorities, which prune less, raise the effort (Sec.~\ref{sec:exp}-B). For the threshold, one linear-fractional LP took 8--56\,ms on the 12-zone instances, against 0.27--0.40\,s for a 10-step bisection on $V^\star(q)$. Bisection, however, only brackets $q^\star$ to $10^{-3}$ and cannot certify the tie case $q^\star=1$, which the exact program identifies.
+
+\begin{table}[t]
+\centering
+\caption{Solver ablation: median time (s) over three maps to compute $P$ and $V^\star(0)$ exactly; ``mem'': matrix exceeds 1.2\,GB; time limit 600\,s.}
+\label{tab:abl}
+\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}rrrrr@{}}
+\toprule
+$N$ & $|\W|$ & full matrix & enumerated CG & B\&B CG (ours)\\
+\midrule
+12 & $1.2\mathrm{e}4$ & 2.27 & 0.38 & 0.08\\
+20 & $1.8\mathrm{e}5$ & 42.0 & 4.66 & 0.15\\
+25 & $5.9\mathrm{e}5$ & 158 & 17.8 & 0.11\\
+30 & $1.6\mathrm{e}6$ & mem & 46.7 & 0.11\\
+40 & $8.1\mathrm{e}6$ & mem & 297 & 0.11\\
+50 & $2.9\mathrm{e}7$ & mem & $>600$ & 0.14\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Implementation.} Single-threaded Python 3.13 (NumPy, SciPy/HiGHS, numba) on one 2.1\,GHz Xeon core; tolerances and seeds are documented with the code~\cite{alam2026code}. Intervals are 95\% $t$-intervals with maps or layouts as independent units.
+
+\section{Experiments}\label{sec:exp}
+\subsection{Pre-specified synthetic study}
+\textbf{Role of each study.} The grid is exploratory; its design and continue/stop rule were fixed in a dated protocol file (released with the code, not an external registry) before any $m\ge3$ result. The simulation's sparse regime was chosen from the grid's passing cell, so it is confirmatory only for that regime. The scaling study, the sensitivity analyses of Sec.~\ref{sec:sens}, the real-building map study and the Gazebo experiments were added afterwards to test generality and are reported in full.
+
+\textbf{Design.} The grid crosses $m\in\{2,3,4\}$, $c\in\{1,2,3\}$, reachability density (fraction of reachable site--zone pairs) in $\{0.20,0.35,0.60\}$ and priorities in \{uniform, Zipf-skewed\}, with $K=N=12$, $n=6$, $p=0.7$ and 10 random planar maps per cell. The same maps are reused across $(m,c)$ for paired comparison, giving 540 exact games with up to $495\times12{,}376$ payoff entries. The rule was: continue only if some cell with $m\ge3$ and $mc/n\le1$ has mean $G(0)\ge5\%$ with a 95\% CI excluding zero and mean $q^\star\ge0.25$.
+
+\textbf{Results.} Fig.~\ref{fig:heat} reports $G(0)$ for all skewed-priority cells. Three cells passed the rule: $(m,c)=(3,1)$, sparse, skewed with $G(0)=12.0\pm5.4\%$ and $q^\star=0.78$; $(3,2)$, sparse, uniform with $5.4\pm2.6\%$ and $q^\star=0.73$; and $(4,1)$, sparse, skewed with $7.1\pm3.6\%$ and $q^\star=0.64$. The benefit is concentrated where reachability is sparse and capacity is tight. With dense reachability no cell exceeded $1.2\%$, because a single configuration then covers every attack and randomizing has nothing to hedge. The benefit also shrinks as docks are added: mean $G(0)$ over all cells is $3.8\%$, $2.6\%$ and $1.8\%$ for $m=2,3,4$, because more docks leave fewer exploitable gaps in the best fixed configuration. The re-optimized $G(q)$ curves behave as predicted. Consistent with Prop.~\ref{prop:convex}, the curves are convex and most of the benefit is lost by $q\approx0.5$. Of the 321 instances with any concealment gain, 97 had $q^\star=1$ through tied fixed configurations (Cor.~\ref{cor:ties}); 86 of these had uniform priorities. The certified bound of Cor.~\ref{cor:lb} held in all 540 instances and recovered on average 68\% of the exact $q^\star$. Optimal supports were small (mean 4.0 configurations, maximum 10).
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.92\textwidth]{fig_gain_heatmap.pdf}
+\caption{Mean concealment gain $G(0)$ (\%) over 10 maps per cell, skewed priorities. Randomization pays only with sparse reachability and tight capacity ($c=1$), and the gain shrinks with more docks.}
+\label{fig:heat}
+\end{figure*}
+
+
+
+
+\subsection{Scaling to large facilities}
+\textbf{Setup.} We generated larger instances on the same three map types with $K=20$ staging sites and $N\in\{30,40,50\}$ zones, using $m=3$ docks (1140 configurations), $n=6$ alarms, $c\in\{1,2\}$, sparse reachability and skewed priorities, with three layouts per map (54 instances). The attack spaces have $1.6\times10^6$ to $2.9\times10^7$ allocations and are never enumerated. Each instance is solved exactly with the matrix-free method for $q=0,0.25,0.5$.
+
+\textbf{Results.} The concealment benefit persists at facility scale. With $c=1$, all 27 instances have a positive gain: mean $G(0)$, $G(0.25)$, $G(0.5)$ is $7.8$, $5.3$, $3.0\%$ at $N=30$ and $5.2$, $3.5$, $1.9\%$ at $N=50$. With $c=2$ the gain falls to about $2\%$ at $q=0$, the same capacity effect as in Fig.~\ref{fig:heat}. All three $q$ values took a median of $0.1$--$0.3$\,s per instance. Uniform priorities prune less ($N=50$: 5.7\,s), and the largest stress test, $N=100$, $K=30$, $m=4$, $n=8$, $c=2$ ($3.3\times10^{11}$ allocations), solved exactly in 11.5\,s.
+
+\subsection{Sensitivity analyses}\label{sec:sens}
+\textbf{Policy-dependent relocation exposure.} We evaluated the end-to-end value of Remark~\ref{rem:reloc} on the 15 sparse layouts for shift lengths $H$ from 8\,h down to 2\,min. The exposure-aware policy is the best of the exogenous optima $x^\star(q')$, $q'\in[0,1]$, evaluated exactly under endogenous exposure. Exposure $\mathbb{E}_x[\tau]/H$ at $q=0$ is $0.1\%$, $3.7\%$ and $28\%$ for $H=8$\,h, 15\,min and 2\,min; the end-to-end gain falls from $11.2\%$ to $10.6\%$ and $6.4\%$, and exposure-aware re-optimization recovers at most 1.1 points. The exogenous optimum beats fixed staging in at least 13 of 15 layouts at every $H$ and $q$. In 15-minute closed-loop shifts at $q=0.25$ the two policies gained $5.6\%$ and $5.3\%$ (13/15 layouts each). The exogenous-leakage optimum is therefore adequate for shifts of 15\,min or longer, while minute-scale re-staging requires modelling exposure explicitly.
+
+\textbf{Response model.} We re-solved the 240 grid games with $m\in\{3,4\}$ and $c\in\{1,2\}$ under three alternatives. In the favourable cell (sparse, $c=1$, skewed; 20 games), $G(0)$ is $9.5\pm3.0\%$ for the paper's all-or-nothing model with $p=0.7$, but $2.8\pm0.9\%$ with $p=0.5$, $15.4\pm4.9\%$ with $p=0.9$, and only $2.1\pm0.7\%$ under partial credit, where a zone earns $v_j$ times its fraction of resolved alarms. (Partial credit is solved exactly by a greedy rule over a transversal matroid.) Per-instance gains under the two restoration rules correlate only at $r=0.48$. All-or-nothing restoration is what makes coordinated coverage valuable, so we restrict our conclusions to that model and to reliable robots; partial-credit or low-reliability settings must be re-solved before randomizing.
+
+\textbf{Scenario factors.} Varying one factor at a time around the base regime on the same 15 layouts, the gain grows with the alarm budget and priority skew, and shrinks with denser reachability, uniform priorities and a larger fleet. In the least favourable levels (uniform priorities, density $0.45$, $n=4$) it falls to 3--4\% and appears in only 7--11 of 15 layouts.
+
+
+
+\subsection{Closed-loop simulation}
+\textbf{Setup.} We built three $120\times80$\,m occupancy-grid maps: a warehouse with shelf rows, an office with rooms and doors, and a campus with buildings. Each map has five random layouts of 12 staging sites and 12 zones. Robots move at a nominal 1.5\,m/s along 8-connected shortest paths, with a lognormal per-trip speed factor ($\sigma=0.15$) and a 30\,s service time. The deadline is set so that reachability density is $0.20$ (sparse regime, chosen from the passing cell $m=3$, $c=1$, skewed) or $0.60$ (dense control). A zone that no site reaches within the deadline is assigned its nearest site, with that arc's nominal travel time as its own deadline. Each 8\,h shift draws a configuration, and robots relocate from the previous docks along shortest paths. An attack occurs at a uniform time; the attacker sees the realized staging if robots are still in transit or, independently, with probability $q$. The planner computes the optimal response under the nominal model. Each robot then drives from its actual position, mid-relocation if needed, and a request counts only if the robot arrives within the deadline and succeeds. We compare five policies: the best fixed configuration; an MEXCLP-style fixed placement; uniform randomization over all configurations; the concealed optimum $x^0$; and the leakage-aware optimum for the true $q$. Each (layout, policy, $q$) is run for 1000 shifts. All policies share the same random draws per (layout, $q$), so comparisons are paired; we report 95\% $t$-intervals over the 15 layouts.
+
+
+
+\textbf{Results.} Across the 450 runs (per-policy results for every regime and $q$ released with the code~\cite{alam2026code}), in the sparse regime the leakage-aware policy improves on the best fixed staging by $8.1\pm2.7\%$ (15/15 layouts), $5.8\pm2.3\%$ (13/15) and $2.6\pm2.1\%$ (10/15) at $q=0,0.25,0.5$. At $q=0.5$ the unadapted concealed policy keeps only $0.9\pm2.4\%$ (7/15), so re-optimizing for leakage is what preserves the benefit. Uniform randomization is consistently harmful ($-12$ to $-18\%$), since it spends probability on configurations with large gaps. Randomization helps only when the distribution is optimized. The MEXCLP placement was within $1\%$ of the fixed maximin. In the dense control regime the optimized and covering policies were statistically indistinguishable from fixed staging, as Fig.~\ref{fig:heat} predicts, while uniform randomization was still significantly worse ($-3.5\%$ to $-5.6\%$). Across all runs, simulated values correlate with the model value $V_x(q)$ at $r=0.955$. The simulator is on average 3.1\% lower than the model, because speed variation and mid-relocation positions cause deadline misses that the model omits.
+
+\textbf{Real floor plan.} To check that the synthetic maps do not drive these results, we repeated the simulation protocol on the map of a real building (no physical robots were used), the Willow Garage office, a 0.1\,m laser map of a real $54\times59$\,m building (from the \texttt{stage\_ros} distribution). Planning uses the map itself with obstacles inflated by the robot radius (0.35\,m), so every model path fits the robot; five layouts, 5\,m site/zone separation, other settings unchanged. The exact gains are $10.7\%$, $7.0\%$ and $4.2\%$ at $q=0,0.25,0.5$ (synthetic: $11.2$, $7.5$, $4.2\%$), with mean $q^\star=0.82$ (synthetic $0.83$). In closed loop the leakage-aware policy gains $7.3\%$, $6.6\%$ and $5.5\%$ (4/5 layouts each), although with five layouts the 95\% intervals include zero; uniform randomization loses 14--20\% in every layout, and at $q=0.5$ the unadapted concealed policy keeps only $-0.3\%$.
+
+\subsection{Gazebo/Nav2: travel times, reachability and concurrent dispatch}
+\textbf{Setup.} The model's reachability depends entirely on travel times from the grid path model, so we checked them against a full navigation stack. Each map's layout~0 was extruded into a Gazebo Harmonic world. A Jackal-scale ($0.5\times0.4$\,m) differential-drive robot ran ROS~2 Jazzy Nav2 on the static map (0.25\,m), with an A$^\ast$ NavFn planner, Regulated Pure Pursuit at 1.5\,m/s, ground-truth odometry and default recoveries. On each map it drove a 40-leg tour of random site--zone pairs (every fifth leg a relocation), timed in simulation from goal acceptance to arrival within 0.5\,m.
+
+\textbf{Single-robot results.} Of 120 legs, 118 succeeded (one software acknowledgement timeout, one controller stall; each failure and the leg after it were excluded). Across 92 response legs, Nav2 time $=0.997\,t_{\mathrm{model}}+1.0$\,s with $R^2=0.995$; the mean absolute error is 3.7\%, and the model and Nav2 classify 91 of 92 measured pairs identically as reachable or not. Reachability rebuilt for all 15 layouts from Nav2-calibrated times agrees with the model on 98.7\% of arcs, and the re-optimized gain is $10.7\%$, $7.2\%$ and $4.0\%$ at $q=0,0.25,0.5$ (model $11.2$, $7.5$, $4.2\%$). The 95th-percentile timing error was 3.8\,s (median 0.9\,s on the 37 legs within 10\,s of their deadline). These runs validate single-robot travel times only.
+
+\textbf{Concurrent multi-robot execution.} To test the full system under the assumptions that produce the benefit, we executed in Gazebo every dispatch that the leakage-aware policy ($q=0.25$) or the best fixed staging can produce, on all 15 sparse layouts. Three robots, each with its own namespaced Nav2 stack and TF tree, run throughout. The simulator runs at real-time factor 0.5 so that three full stacks fit our two-core machine; all times are simulation times. Robots perceive each other: a virtual range scan of the other robots, built from shared poses, feeds an obstacle layer in every robot's local and global costmap, and robots sent to the same zone use distinct service points at least 1.4\,m apart. Each (configuration, attack) pair with positive probability is executed once. Nav2 decides which legs arrive by their deadlines, and a policy's value is the exact expectation over its distribution, the observation event and the success draws. With every leg on time this returns the model's $V_x(q)$ and $P$, so the comparison has no sampling noise. Three rounds of fresh executions differ only in the reachability used for planning (Table~\ref{tab:gzc}).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_nav2_layouts.pdf}
+\caption{Planned versus Nav2-realized gain per layout under model reachability (circles) and slack-verified reachability (squares, mean of three runs). Points on the dashed line realize exactly the planned value; rings mark layouts with converging-robot failures. Slack-verified means: Nav2 $4.1\pm2.1\%$ vs.\ $5.4\pm2.7\%$ planned on the 14 layouts where the fixed baseline succeeds; $5.7\pm3.9\%$ on all 15 (raised by warehouse 4).}
+\label{fig:nav2}
+\end{figure}
+
+\begin{table}[!t]
+\centering
+\caption{Concurrent three-robot Nav2 execution of every dispatch the policies can produce (15 layouts, $q=0.25$). Gains vs.\ best fixed staging, mean $\pm$ 95\% $t$-interval over layouts; ``exact'': layouts where Nav2 realizes exactly the planned value. The slack round was executed three times (counts summed); $^\ddagger$excludes the one layout where the fixed baseline's own arc fails.}
+\label{tab:gzc}
+\scriptsize\setlength{\tabcolsep}{1.9pt}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+reachability & disp.\,(conc.) & on time & planned & Nav2 & gain$>$0 & exact\\
+\midrule
+model & 79 (58) & 128/157 & $7.5\pm2.5$ & $3.3\pm4.9$ & 10/15 & 4/15\\
++ slack $\ge3.8$\,s & 156 (81) & 245/261 & $5.3\pm2.5$ & $5.7\pm3.9$ & 13/15 & 12/15\\
+\quad 14 layouts$^\ddagger$ & & & $5.4\pm2.7$ & $\mathbf{4.1\pm2.1}$ & 12/14 & 12/14\\
++ shared-zone margin & 22 (10) & 32/35 & $3.3\pm2.6$ & $2.0\pm1.4$ & 8/15 & 13/15\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The engineering lesson is visible per layout in Fig.~\ref{fig:nav2}: optimizing an adversarial staging game on an inaccurate reachability graph can erase the predicted benefit, and correcting the graph recovers most of it. With model reachability, Nav2 delivered less than half of the planned gain, and on one office layout the policy lost 19\% against fixed staging. Of the 29 failed legs, 26 lay on arcs with less than 3.8\,s of slack, the 95th-percentile timing error measured in the earlier single-robot runs. The second round removes such arcs before planning, a rule fixed before these runs. We executed this round three times. On the 14 layouts where the fixed baseline's arcs all succeed, Nav2 realizes $4.1\pm2.1\%$ against $5.4\pm2.7\%$ planned, and 12 layouts realize exactly the planned value in every repetition (both medians 3.3\%). The remaining warehouse layout, where the \emph{fixed} baseline's own arc fails and the policy's gain rises to 28\%, lifts the 15-layout mean to $5.7\pm3.9\%$; we do not rely on that figure. Nav2 timing was nearly deterministic: the median spread of a leg's arrival time across repetitions was 0.09\,s, 3 of 87 legs changed on-time status, and only one layout's realized gain changed (7.0, 16.1, 9.3\%). Every failure (16 of 261 legs) and every spread above 3.1\,s comes from one of two mechanisms the model omits. First, robots converging on one zone delay each other. In the first round their delays had a 95th percentile of 9.6\,s, against 2.7\,s for robots bound for distinct zones; in the second round they reached 65\,s, and the closest approach was 0.49\,m between 0.5\,m-long bodies. Second, one office arc ending near a wall stalled the controller's collision check in all 8 of its uses. The third round adds a 9.7\,s margin, the first-round 95th percentile, for zones served by two or more robots. It removed most interference failures, but planning on so few arcs leaves little to gain (realized $2.0\%$), so we recommend the second-round rule and treat converging dispatch as a limitation. Per-dispatch results are released with the code~\cite{alam2026code}.
+
+\section{Discussion and Limitations}
+\textbf{Deployment procedure.} (i) From the facility map, candidate docks and deadlines, build reachability with the deployed navigation stack and drop arcs whose slack is below its timing error. (ii) Compute the best fixed staging, the optimal mixture and $q^\star$, which varies widely between sites. (iii) Estimate the leakage probability conservatively, e.g.\ from red-team trials. If it is clearly below $q^\star$, deploy the optimized mixture; otherwise the best fixed staging is optimal. When surveillance trials support only an interval $q\in[q_\ell,q_h]$, the choice is still simple. $V_x(q)$ is linear and non-increasing in $q$, so the max-min policy over the interval is $x^\star(q_h)$, and since regret $V^\star(q)-V_x(q)$ is convex in $q$, the minimax-regret policy is one LP with two endpoint constraints. On the 15 layouts with $q\in[0.2,0.5]$, planning for $q_h$ guarantees $4.2\pm1.8\%$ over fixed staging across the whole interval with at most $0.8\%$ regret at any $q$ in it (minimax regret: $0.5\%$). Planning for $q=0$ guarantees only $2.8\%$ and falls below fixed staging in 5 layouts. This procedure assumes exogenous leakage (Remark~\ref{rem:reloc}). \textbf{Limits.} Alarm budgets are small ($n\le8$), and branch-and-bound effort grows when priorities are uniform, because value ordering then prunes less. The conclusions are restricted to all-or-nothing restoration with independent, reasonably reliable robots: partial credit or $p=0.5$ cuts the favourable-cell gain to about 2--3\% (Sec.~\ref{sec:sens}), and correlated failures or heterogeneous robots would change \eqref{eq:U} and the bounds built on it. The policies are optimal for exogenous leakage; they remain adequate for shifts of 15\,min or longer, but minute-scale re-staging needs exposure-aware optimization. The adversary is fully rational and knows the policy. The model omits navigation effects. Unverified low-slack arcs erased much of the benefit in concurrent Nav2 runs, so reachability must be verified with the deployed stack; after verification, the remaining discrepancies came from robots converging on one zone and from one arc that the controller could not complete. Modelling inter-robot interference in the response, or assigning converging robots staggered approach routes, is the natural extension. The concurrent runs involve three robots in simulation with shared-pose perception, and the alarm data are synthetic. Only one map comes from a real building, all robot experiments are simulated, and on that map our Nav2 configuration could not reliably pass the laser map's cluttered doorways (a pilot dispatch aborted or took three times the model time), so that map is evaluated in simulation only. There is no hardware experiment.
+
+\section{Conclusion}
+Randomized deployment is not inherently safer than fixed placement. Its value depends jointly on which resource configurations open together, on how much of the realized deployment the adversary observes, and on what the robots can physically reach under concurrent execution. Optimizing any one of these without the others produced policies whose advantage vanished: per-site marginals can turn a gain into a loss, randomizing uniformly or ignoring leakage loses to fixed staging, and an unverified reachability graph erased half the planned gain in Nav2. Taken together, joint-configuration optimization, an exact leakage threshold, and navigation-verified reachability recover the benefit where sparse reachability and tight capacity make it exist. Code, instances, the pre-specified protocol and all raw results are released at~\cite{alam2026code}.
+
+\small
+\begin{thebibliography}{99}
+\bibitem{tambe2011} M. Tambe, \emph{Security and Game Theory: Algorithms, Deployed Systems, Lessons Learned}. Cambridge Univ. Press, 2011.
+\bibitem{korzhyk2011} D. Korzhyk, Z. Yin, C. Kiekintveld, V. Conitzer, and M. Tambe, ``Stackelberg vs. Nash in security games: An extended investigation of interchangeability, equivalence, and uniqueness,'' \emph{J. Artif. Intell. Res.}, vol. 41, pp. 297--327, 2011.
+\bibitem{agmon2008} N. Agmon, S. Kraus, and G. A. Kaminka, ``Multi-robot perimeter patrol in adversarial settings,'' in \emph{Proc. IEEE Int. Conf. Robot. Autom. (ICRA)}, 2008, pp. 2339--2345.
+\bibitem{basilico2012} N. Basilico, N. Gatti, and F. Amigoni, ``Patrolling security games: Definition and algorithms for solving large instances with single patroller and single intruder,'' \emph{Artif. Intell.}, vol. 184--185, pp. 78--123, 2012.
+\bibitem{kiekintveld2009} C. Kiekintveld, M. Jain, J. Tsai, J. Pita, F. Ord\'o\~nez, and M. Tambe, ``Computing optimal randomized resource allocations for massive security games,'' in \emph{Proc. Int. Conf. Auton. Agents Multiagent Syst. (AAMAS)}, 2009, pp. 689--696.
+\bibitem{mcmahan2003} H. B. McMahan, G. J. Gordon, and A. Blum, ``Planning in the presence of cost functions controlled by an adversary,'' in \emph{Proc. Int. Conf. Mach. Learn. (ICML)}, 2003, pp. 536--543.
+\bibitem{jain2011} M. Jain, D. Korzhyk, O. Van\v{e}k, V. Conitzer, M. P\v{e}chou\v{c}ek, and M. Tambe, ``A double oracle algorithm for zero-sum security games on graphs,'' in \emph{Proc. Int. Conf. Auton. Agents Multiagent Syst. (AAMAS)}, 2011, pp. 305--312.
+\bibitem{xu2015leak} H. Xu, A. X. Jiang, A. Sinha, Z. Rabinovich, S. Dughmi, and M. Tambe, ``Security games with information leakage: Modeling and computation,'' in \emph{Proc. Int. Joint Conf. Artif. Intell. (IJCAI)}, 2015, pp. 674--679.
+\bibitem{xu2015asym} H. Xu, Z. Rabinovich, S. Dughmi, and M. Tambe, ``Exploring information asymmetry in two-stage security games,'' in \emph{Proc. AAAI Conf. Artif. Intell.}, vol. 29, no. 1, 2015.
+\bibitem{han2016} C. Y. Han, B. J. Lunday, and M. J. Robbins, ``A game theoretic model for the optimal location of integrated air defense system missile batteries,'' \emph{INFORMS J. Comput.}, vol. 28, no. 3, pp. 405--416, 2016.
+\bibitem{boardman2017} N. T. Boardman, B. J. Lunday, and M. J. Robbins, ``Heterogeneous surface-to-air missile defense battery location: A game theoretic approach,'' \emph{J. Heuristics}, vol. 23, no. 6, pp. 417--447, 2017.
+\bibitem{brown2006} G. Brown, M. Carlyle, J. Salmer\'on, and K. Wood, ``Defending critical infrastructure,'' \emph{Interfaces}, vol. 36, no. 6, pp. 530--544, 2006.
+\bibitem{delage2019} E. Delage, D. Kuhn, and W. Wiesemann, ``\,`Dice'-sion-making under uncertainty: When can a random decision reduce risk?'' \emph{Manage. Sci.}, vol. 65, no. 7, pp. 3282--3301, 2019.
+\bibitem{church1974} R. Church and C. ReVelle, ``The maximal covering location problem,'' \emph{Pap. Reg. Sci. Assoc.}, vol. 32, pp. 101--118, 1974.
+\bibitem{daskin1983} M. S. Daskin, ``A maximum expected covering location model: Formulation, properties and heuristic solution,'' \emph{Transp. Sci.}, vol. 17, no. 1, pp. 48--70, 1983.
+\bibitem{gerkey2004} B. P. Gerkey and M. J. Matari\'c, ``A formal analysis and taxonomy of task allocation in multi-robot systems,'' \emph{Int. J. Robot. Res.}, vol. 23, no. 9, pp. 939--954, 2004.
+\bibitem{gale1957} D. Gale, ``A theorem on flows in networks,'' \emph{Pacific J. Math.}, vol. 7, no. 2, pp. 1073--1082, 1957.
+\bibitem{charnes1962} A. Charnes and W. W. Cooper, ``Programming with linear fractional functionals,'' \emph{Nav. Res. Logist. Q.}, vol. 9, no. 3--4, pp. 181--186, 1962.
+\bibitem{alam2026code} S. M. Alam and H. Rafique, ``Code and data for leakage-aware robot staging,'' 2026. [Online]. Available: https://github.com/alam121/hub-placement
+\end{thebibliography}
+\end{document}
